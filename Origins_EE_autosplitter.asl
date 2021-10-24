@@ -3,7 +3,7 @@ state("t6zmv41", "Redacted")
 {
 	int frame: 		0x00067800, 0x0;		//Tick counter	
 	int round: 		0x004530D0, 0x4;		//Current round
-	int maxping:	0x024B6880, 0x18		//Maxping DVAR
+	int maxping:		0x024B6880, 0x18		//Maxping DVAR
 }
 
 //Plutonium
@@ -11,7 +11,7 @@ state("plutonium-bootstrapper-win32", "Plutonium")
 {
 	int frame: 		0x002E4000, 0x0;		//Tick counter	 
 	int round: 		0x004530D0, 0x4;		//Current round
-	int maxping:	0x025EC494, 0x258		//Maxping DVAR
+	int maxping:		0x025EC494, 0x258		//Maxping DVAR
 }
 
 startup
