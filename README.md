@@ -4,7 +4,7 @@ Compatible with [Redacted](https://redacted.se) and [Plutonium](https://plutoniu
 
 # Setup
 ### Download
-*  [Autosplitter + gsc script](https://github.com/HuthTV/BO2-Origins-EE-AutoSplitter/releases/download/1.0/ORIGINS_EE_AUTOSPLITTER.zip)
+*  [Autosplitter + gsc script](https://github.com/HuthTV/BO2-Origins-EE-AutoSplitter/releases/download/1.1/ORIGINS_EE_AUTOSPLITTER.zip)
 
 ### Configure
 * Add a Scriptable Auto Splitter component to your livesplit layout and point ```Script Path:``` at Origins_EE_autosplitter.asl
