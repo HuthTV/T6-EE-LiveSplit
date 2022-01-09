@@ -2,7 +2,6 @@
 state("t6zmv41", "Redacted")
 {
 	int tick: 		0x002AA13C, 0x14;		//Tick counter	
-	int round: 		0x004530D0, 0x4;		//Current round
 	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 
@@ -10,7 +9,6 @@ state("t6zmv41", "Redacted")
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
 	int tick: 		0x002AA13C, 0x14;		//Tick counter	 
-	int round: 		0x004530D0, 0x4;		//Current round
 	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 
@@ -42,7 +40,7 @@ startup
 	 };
 	 
 	foreach(var Split in vars.split_names)
-		settings.Add(Split.Key, true, Split.Value, "splits");
+		settings.Add(Split.Key, false, Split.Value, "splits");
 	 
 	vars.split_index = new Dictionary<int,string> 
 	{
