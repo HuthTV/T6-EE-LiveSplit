@@ -1,18 +1,19 @@
 //Redacted
 state("t6zmv41", "Redacted")
 {
-	int frame: 		0x00067800, 0x0;		//Tick counter	
+	int tick: 		0x002AA13C, 0x14;		//Tick counter	
 	int round: 		0x004530D0, 0x4;		//Current round
-	int maxping:		0x024B6880, 0x18;		//Maxping DVAR
+	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 
 //Plutonium
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
-	int frame: 		0x002E4000, 0x0;		//Tick counter	 
+	int tick: 		0x002AA13C, 0x14;		//Tick counter	 
 	int round: 		0x004530D0, 0x4;		//Current round
-	int maxping:		0x024B6880, 0x18;		//Maxping DVAR
+	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
+
 startup
 {
 	settings.Add("splits", true, "Splits");
@@ -35,6 +36,7 @@ startup
 		{"ee_mech_zombie_fight_completed", "Unleash the horde (Panzers killed)"},
 		{"ee_maxis_drone_retrieved", "Skewer the winged beast (Maxis drone retrieved)"},
 		{"ee_all_players_upgraded_punch", "Wield a fist of iron (Punch upgraded)"},
+		{"player_active_in_chamber", "Enter crazy place"},
 		{"ee_souls_absorbed", "Raise hell (Crazy place souls filled)"},
 		{"end_game", "Freedom (Game ended)"},
 	 };
@@ -60,15 +62,18 @@ startup
 		{14, "ee_mech_zombie_fight_completed"},
 		{15, "ee_maxis_drone_retrieved"},
 		{16, "ee_all_players_upgraded_punch"},
-		{17, "ee_souls_absorbed"},
-		{18, "end_game"},
+		{17, "player_active_in_chamber"},
+		{18, "ee_souls_absorbed"},
+		{19, "end_game"},
 	 };
 }
+
+
 start
 {
-	if(current.round == 1)
+	if(current.maxping == 115 && current.tick > 0)
 	{
-		vars.startFrame = current.frame;
+		vars.starttick = current.tick;
 		vars.split = 0;
 		return true;
 	} 
@@ -76,27 +81,23 @@ start
 
 reset
 {
-	if(current.round == 0)
+	if(current.tick == 0)
 		return true;
-}
-
-isLoading
-{
-	if(current.frame == old.frame)
-		timer.CurrentPhase = TimerPhase.Paused;
-	else
-		timer.CurrentPhase = TimerPhase.Running;
-	return false;
 }
 
 gameTime
 {
-	return TimeSpan.FromMilliseconds(current.frame - vars.startFrame);
+	return TimeSpan.FromMilliseconds( (current.tick - vars.starttick) * 50);
+}
+
+isLoading
+{
+	return true;
 }
 
 split
 {
-	if(current.maxping != vars.split)
+	if(current.maxping > vars.split && current.maxping < 100)
 	{
 		vars.split++;
 		if(settings[vars.split_index[vars.split]])
