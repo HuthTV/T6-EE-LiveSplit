@@ -1,5 +1,5 @@
 # Description
-Autosplitters for speedrunning BO2 solo easter eggs. Automatically start, reset, and split runs. Accurate to a tick (± 50ms). Available for Origins & MotD.
+Autosplitters for speedrunning BO2 solo easter eggs. Automatically start, reset, and split runs. Accurate to a tick (±50ms). Available for Origins & MotD.
 
 Compatible with [Redacted](https://redacted.se) and [Plutonium](https://plutonium.pw).
 
