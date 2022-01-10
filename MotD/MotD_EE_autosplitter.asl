@@ -1,14 +1,14 @@
 //Redacted
 state("t6zmv41", "Redacted")
 {
-	int tick: 		0x002AA13C, 0x14;		//Tick counter	
+	int tick: 	0x002AA13C, 0x14;		//Tick counter	
 	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 
 //Plutonium
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
-	int tick: 		0x002AA13C, 0x14;		//Tick counter	 
+	int tick: 	0x002AA13C, 0x14;		//Tick counter	 
 	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 startup

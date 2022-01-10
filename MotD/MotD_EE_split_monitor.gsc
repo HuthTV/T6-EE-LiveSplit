@@ -12,7 +12,6 @@ init()
 		flag_wait("initial_blackscreen_passed");
 		player thread showConnectMessage();
 	}
-
 }
 
 startMonitor()
@@ -26,19 +25,19 @@ startMonitor()
 splitMonitor()
 {
 	split = 0;
-	splits = array(	"key_found", 
-					"gondola_in_motion_1",
-					"plane_boarded",
-					"gondola_in_motion",
-					"plane_boarded",
-					"gondola_in_motion",
-					"plane_boarded",
-					"warden_blundergat_obtained",
-					"nixie_code",
-					"last_audio_log");
+	splits = array(	
+			"key_found", 
+			"gondola_in_motion_1",
+			"plane_boarded",
+			"gondola_in_motion",
+			"plane_boarded",
+			"gondola_in_motion",
+			"plane_boarded",
+			"warden_blundergat_obtained",
+			"nixie_code",
+			"last_audio_log");
 	
-
-	while(split < 10)
+	while(split < splits.size)
 	{		
 		checkSplit(splits[split], isFlag(splits[split]));		
 		split++;
@@ -64,13 +63,11 @@ checkSplit(split, isFlag)
 			
 			case "last_audio_log":
 				wait 45;
-				while(isdefined(level.m_headphones))
-					wait 0.05;
+				while( isdefined(level.m_headphones) ) wait 0.05;
 				return 1;
 				
 			case "gondola_in_motion_1":
-				while( !(flag("gondola_in_motion") && level.soul_catchers_charged == 1) )
-					wait 0.05;
+				while( !(flag("gondola_in_motion") && level.soul_catchers_charged == 1) ) wait 0.05;
 				return 1;
 			
 			default:
@@ -99,4 +96,6 @@ isFlag(splitName)
 }
 
 showConnectMessage()
-{ self iprintln("^4github.com/HuthTV ^7- MotD EE autosplitter"); }
+{ 
+	self iprintln("^4github.com/HuthTV ^7- MotD EE autosplitter"); 
+}

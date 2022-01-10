@@ -7,7 +7,6 @@ init()
 {
 	if(level.script == "zm_tomb")
 	{
-		
 		level thread startMonitor();
 		flag_wait("initial_blackscreen_passed");
 		player thread showConnectMessage();
@@ -26,26 +25,26 @@ splitMonitor()
 {
 	split = 0;
 	splits = array(	"activate_zone_nml", 
-					"soul_box_1",
-					"soul_box_2",
-					"soul_box_3",
-					"soul_box_4",
-					"staff_1_crafted",
-					"has_beacon_zm",
-					"staff_2_crafted",
-					"staff_3_crafted",
-					"staff_4_crafted",
-					"ee_all_staffs_upgraded",
-					"ee_all_staffs_placed",
-					"ee_mech_zombie_hole_opened",
-					"ee_mech_zombie_fight_completed",
-					"ee_maxis_drone_retrieved",
-					"ee_all_players_upgraded_punch",
-					"player_active_in_chamber",
-					"ee_souls_absorbed",
-					"end_game");
+			"soul_box_1",
+			"soul_box_2",
+			"soul_box_3",
+			"soul_box_4",
+			"staff_1_crafted",
+			"has_beacon_zm",
+			"staff_2_crafted",
+			"staff_3_crafted",
+			"staff_4_crafted",
+			"ee_all_staffs_upgraded",
+			"ee_all_staffs_placed",
+			"ee_mech_zombie_hole_opened",
+			"ee_mech_zombie_fight_completed",
+			"ee_maxis_drone_retrieved",
+			"ee_all_players_upgraded_punch",
+			"player_active_in_chamber",
+			"ee_souls_absorbed",
+			"end_game");
 
-	while(split < 19)
+	while(split < splits.size)
 	{
 		checkSplit(splits[split], isFlag(splits[split]));
 		split++;
@@ -60,7 +59,6 @@ setSplit(val)
 
 checkSplit(split, isFlag)
 {
-
 	if(isFlag)
 	{
 		flag_wait(split);
@@ -70,14 +68,12 @@ checkSplit(split, isFlag)
 	{
 		switch(split)
 		{
-		
 			case "soul_box_1":
 			case "soul_box_2":
 			case "soul_box_3":
 			case "soul_box_4":
 				boxes = level.n_soul_boxes_completed;
-				while(boxes == level.n_soul_boxes_completed)
-					wait 0.05;
+				while(boxes == level.n_soul_boxes_completed) wait 0.05;
 				return 1;
 				
 			case "staff_1_crafted":
@@ -85,8 +81,11 @@ checkSplit(split, isFlag)
 			case "staff_3_crafted":
 			case "staff_4_crafted":
 				staffs = level.n_staffs_crafted;
-				while(staffs == level.n_staffs_crafted)
-					wait 0.05;
+				while(staffs == level.n_staffs_crafted) wait 0.05;
+				return 1;
+			
+			case "has_beacon_zm":
+				while(!maps/mp/zm_tomb_craftables::players_has_weapon("beacon_zm")) wait 0.05;
 				return 1;
 				
 			case "end_game":
@@ -121,4 +120,6 @@ isFlag(splitName)
 }
 
 showConnectMessage()
-{ self iprintln("^4github.com/HuthTV ^7- Origins EE autosplitter"); }
+{ 
+	self iprintln("^4github.com/HuthTV ^7- Origins EE autosplitter"); 
+}
