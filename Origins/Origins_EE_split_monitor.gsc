@@ -7,10 +7,16 @@ init()
 {
 	if(level.script == "zm_tomb")
 	{
-		level thread startMonitor();
-		flag_wait("initial_blackscreen_passed");
-		player thread showConnectMessage();
+		thread startMonitor();
+		thread onPlayerConnect();	
 	}
+}
+
+onPlayerConnect()
+{
+	level waittill("connecting", player);
+	flag_wait("initial_blackscreen_passed");
+	player thread showConnectMessage();
 }
 
 startMonitor()

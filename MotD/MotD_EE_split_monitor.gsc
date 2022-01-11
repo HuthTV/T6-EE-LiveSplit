@@ -8,10 +8,17 @@ init()
 {
 	if(level.script == "zm_prison")
 	{
-		level thread startMonitor();
+		thread startMonitor();
+		thread onPlayerConnect();	
 		flag_wait("initial_blackscreen_passed");
-		player thread showConnectMessage();
 	}
+}
+
+onPlayerConnect()
+{
+	level waittill("connecting", player);
+	flag_wait("initial_blackscreen_passed");
+	player thread showConnectMessage();
 }
 
 startMonitor()
