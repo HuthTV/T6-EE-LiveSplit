@@ -48,7 +48,7 @@ splitMonitor()
 	{
 		checkSplit(splits[split], isFlag(splits[split]));
 		split++;
-		split(split);
+		setSplit(split);
 	}
 }
 
