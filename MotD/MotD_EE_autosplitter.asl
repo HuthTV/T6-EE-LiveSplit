@@ -1,18 +1,19 @@
 //Redacted
 state("t6zmv41", "Redacted")
 {
-	int tick: 	0x002AA13C, 0x14;		//Tick counter	
+	int tick:	0x002AA13C, 0x14;		//Tick counter	
 	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 
 //Plutonium
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
-	int tick: 	0x002AA13C, 0x14;		//Tick counter	 
+	int tick:	0x002AA13C, 0x14;		//Tick counter	 
 	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 startup
 {
+	refreshRate = 20;
 	settings.Add("splits", true, "Splits");
 	
 	vars.split_names = new Dictionary<string,string> 
@@ -59,8 +60,7 @@ start
 
 reset
 {
-	if(current.tick == 0)
-		return true;
+		return current.tick == 0;	
 }
 
 
@@ -71,7 +71,8 @@ gameTime
 
 isLoading
 {
-	return true;
+	timer.CurrentPhase = ( current.tick == old.tick ? TimerPhase.Paused : TimerPhase.Running );
+	return false;
 }
 
 split

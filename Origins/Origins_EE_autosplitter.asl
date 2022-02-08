@@ -1,19 +1,20 @@
 //Redacted
 state("t6zmv41", "Redacted")
 {
-	int tick: 	0x002AA13C, 0x14;		//Tick counter	
+	int tick:	0x002AA13C, 0x14;		//Tick counter	
 	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 
 //Plutonium
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
-	int tick: 	0x002AA13C, 0x14;		//Tick counter	 
+	int tick:	0x002AA13C, 0x14;		//Tick counter	 
 	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 
 startup
 {
+	refreshRate = 20;
 	settings.Add("splits", true, "Splits");
 	
 	vars.split_names = new Dictionary<string,string> 
@@ -34,7 +35,7 @@ startup
 		{"ee_mech_zombie_fight_completed", "Unleash the horde (Panzers killed)"},
 		{"ee_maxis_drone_retrieved", "Skewer the winged beast (Maxis drone retrieved)"},
 		{"ee_all_players_upgraded_punch", "Wield a fist of iron (Punch upgraded)"},
-		{"player_active_in_chamber", "Enter crazy place"},
+		{"all_staffs_placed", "All staffs placed in crazyplace"},
 		{"ee_souls_absorbed", "Raise hell (Crazy place souls filled)"},
 		{"end_game", "Freedom (Game ended)"},
 	 };
@@ -60,7 +61,7 @@ startup
 		{14, "ee_mech_zombie_fight_completed"},
 		{15, "ee_maxis_drone_retrieved"},
 		{16, "ee_all_players_upgraded_punch"},
-		{17, "player_active_in_chamber"},
+		{17, "all_staffs_placed"},
 		{18, "ee_souls_absorbed"},
 		{19, "end_game"},
 	 };
@@ -79,8 +80,7 @@ start
 
 reset
 {
-	if(current.tick == 0)
-		return true;
+	return current.tick == 0;	
 }
 
 gameTime
@@ -90,7 +90,8 @@ gameTime
 
 isLoading
 {
-	return true;
+	timer.CurrentPhase = ( current.tick == old.tick ? TimerPhase.Paused : TimerPhase.Running );
+	return false;
 }
 
 split

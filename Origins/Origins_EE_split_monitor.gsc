@@ -46,7 +46,7 @@ splitMonitor()
 			"ee_mech_zombie_fight_completed",
 			"ee_maxis_drone_retrieved",
 			"ee_all_players_upgraded_punch",
-			"player_active_in_chamber",
+			"all_staffs_placed",
 			"ee_souls_absorbed",
 			"end_game");
 
@@ -92,6 +92,10 @@ checkSplit(split, isFlag)
 			
 			case "has_beacon_zm":
 				while(!maps/mp/zm_tomb_craftables::players_has_weapon("beacon_zm")) wait 0.05;
+				return 1;
+
+			case "all_staffs_placed"
+				while(!maps/mp/zm_tomb_ee_main::all_staffs_inserted_in_puzzle_room()) wait 0.05;
 				return 1;
 				
 			case "end_game":
