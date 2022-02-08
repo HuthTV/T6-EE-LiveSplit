@@ -94,7 +94,7 @@ checkSplit(split, isFlag)
 				while(!maps/mp/zm_tomb_craftables::players_has_weapon("beacon_zm")) wait 0.05;
 				return 1;
 
-			case "all_staffs_placed"
+			case "all_staffs_placed":
 				while(!maps/mp/zm_tomb_ee_main::all_staffs_inserted_in_puzzle_room()) wait 0.05;
 				return 1;
 				
