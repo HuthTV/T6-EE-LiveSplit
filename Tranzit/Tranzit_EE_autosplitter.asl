@@ -21,6 +21,7 @@ startup
 	{
 		{"jetgun_built", "Jetgun built"},
 		{"ee_complete", "Easter egg completed"},
+		{"lights_on", "Blue lights turned on"}
 	 };
 	 
 	foreach(var Split in vars.split_names)
@@ -30,6 +31,7 @@ startup
 	{
 		{1, "jetgun_built"},
 		{2, "ee_complete"},
+		{3, "lights_on",}
 	 };
 }
 

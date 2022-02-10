@@ -30,7 +30,7 @@ startMonitor()
 splitMonitor()
 {
 	split = 0;
-	splits = array(	"jetgun_built", "ee_complete");
+	splits = array(	"jetgun_built", "ee_complete", "lights_on");
 
 	while(split < splits.size)
 	{
@@ -55,6 +55,9 @@ checkSplit(split, isFlag)
 
 		case "ee_complete":
 			while(level.sq_progress["rich"]["FINISHED"] == 0) wait 0.05;
+			return 1;
+
+		case "lights_on":
 			wait 8;
 			return 1;
 			
