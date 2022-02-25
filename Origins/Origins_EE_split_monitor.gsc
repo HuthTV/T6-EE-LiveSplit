@@ -121,7 +121,9 @@ isFlag(splitName)
 		case "staff_2_crafted":
 		case "staff_3_crafted":
 		case "staff_4_crafted":
+		case "all_staffs_placed":
 		case "end_game":
+		
 			return 0;
 			
 		default:
