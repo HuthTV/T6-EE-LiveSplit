@@ -31,7 +31,7 @@ startup
 	{
 		{1, "jetgun_built"},
 		{2, "ee_complete"},
-		{3, "lights_on",}
+		{3, "lights_on"}
 	 };
 }
 
