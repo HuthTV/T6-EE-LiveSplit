@@ -24,6 +24,8 @@ onPlayerConnect()
 startMonitor()
 {
 	setSplit(0);
+	flag_wait("initial_blackscreen_passed");
+	setSplit(120);
 	level waittill("someone_touched_controls");
 	setSplit(115);
 	level thread splitMonitor();
@@ -74,7 +76,9 @@ checkSplit(split, isFlag)
 				return 1;
 				
 			case "gondola_in_motion_1":
-				while( !(flag("gondola_in_motion") && level.soul_catchers_charged == 1) ) wait 0.05;
+				flag_wait("gondola_in_motion");
+				wait 15;
+				flag_wait("gondola_in_motion");
 				return 1;
 			
 			default:
