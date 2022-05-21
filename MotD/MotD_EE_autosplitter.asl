@@ -14,9 +14,9 @@ state("plutonium-bootstrapper-win32", "Plutonium")
 startup
 {
 	refreshRate = 20;
+	settings.Add("legacy_timing", false, "Legacy timing");
+	settings.SetToolTip("legacy_timing", "Timer start when \"someone_touched_controls\" flag is set");
 	settings.Add("splits", true, "Splits");
-	settings.Add("timing_settings", true, "Timing Settings");
-	settings.Add("start_on_input", true, "Start on input", "timing_settings");
 	
 	vars.split_names = new Dictionary<string,string> 
 	{
@@ -52,7 +52,7 @@ startup
 
 start
 {
-	if( (current.maxping == 115 || (current.maxping == 120 && !settings["start_on_input"] )) && current.tick > 0)
+	if( (current.maxping == 115 || (current.maxping == 120 && !settings["legacy_timing"] )) && current.tick > 0)
 	{
 		vars.starttick = current.tick;
 		vars.split = 0;
