@@ -6,11 +6,11 @@
 
 init()
 {
+	setSplit(0);
 	if(level.script == "zm_prison")
 	{
 		thread startMonitor();
 		thread onPlayerConnect();	
-		flag_wait("initial_blackscreen_passed");
 	}
 }
 
@@ -23,7 +23,6 @@ onPlayerConnect()
 
 startMonitor()
 {
-	setSplit(0);
 	flag_wait("initial_blackscreen_passed");
 	setSplit(120);
 	level waittill("someone_touched_controls");
