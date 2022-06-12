@@ -7,7 +7,7 @@
 init()
 {
 	setSplit(0);
-	if(level.script == "zm_prison")
+	if(level.script == "zm_prison" && isDefined( level.is_forever_solo_game ) && level.is_forever_solo_game)
 	{
 		thread startMonitor();
 		thread onPlayerConnect();	
@@ -24,8 +24,6 @@ onPlayerConnect()
 startMonitor()
 {
 	flag_wait("initial_blackscreen_passed");
-	setSplit(120);
-	level waittill("someone_touched_controls");
 	setSplit(115);
 	level thread splitMonitor();
 }
@@ -34,16 +32,33 @@ splitMonitor()
 {
 	split = 0;
 	splits = array(	
-			"key_found", 
-			"gondola_in_motion_1",
-			"plane_boarded",
-			"gondola_in_motion",
-			"plane_boarded",
-			"gondola_in_motion",
-			"plane_boarded",
-			"warden_blundergat_obtained",
-			"nixie_code",
-			"last_audio_log");
+			"key_found",					//Wardens key
+			"dryer_cycle_active",			//Dryer started
+			"cloth_found",					//Clothing grabbed
+			"rigging_found",				//Lines grabbed
+			"fueltanks_found",				//Fueltank grabbed
+			"gondola_in_motion",			//1st gondola
+			"engine_found",					//Engine grabbed
+			"plane_boarded",				//Flight 1
+			"enter_chair",					//Bridge 1 leave
+			"fuel_grabbed",					//Wardens fuel
+			"gondola_in_motion",			//2nd gondola
+			"fuel_grabbed",					//Docks fuel
+			"fuel_grabbed",					//Lighthouse fuel
+			"fuel_grabbed",					//Laundry fuel
+			"fuel_grabbed",					//Infirmary fuel
+			"plane_boarded",				//Flight 2
+			"enter_chair",					//Bridge 2 leave
+			"2_fuel_grabbed", 				//2 fuel grabbed
+			"fuel_grabbed",					//3rd fuel
+			"fuel_grabbed",					//4th fuel
+			"gondola_in_motion",			//3rd gondola
+			"fuel_grabbed",					//5th fuel
+			"plane_boarded",				//Flight 3
+			"enter_chair",					//Bridge 3 leave
+			"warden_blundergat_obtained",	//Gat grabbed
+			"nixie_code",					//Codes enterd
+			"last_audio_log");				//Last log
 	
 	while(split < splits.size)
 	{		
@@ -73,11 +88,26 @@ checkSplit(split, isFlag)
 				wait 45;
 				while( isdefined(level.m_headphones) ) wait 0.05;
 				return 1;
-				
-			case "gondola_in_motion_1":
-				flag_wait("gondola_in_motion");
-				wait 15;
-				flag_wait("gondola_in_motion");
+
+			case "enter_chair":
+				while(level.characters_in_nml.size == 0) wait 0.05;
+				while(level.characters_in_nml.size == 1) wait 0.05;
+				return 1;
+
+			case "2_fuel_grabbed":
+				while(level.sndfuelpieces != 2) wait 0.05;
+				return 1;
+
+			case "fuel_grabbed":
+				if(isDefined( level.sndfuelpieces ))
+				{
+					num_fuel = level.sndfuelpieces;
+				}
+				else
+				{
+					num_fuel = 0;
+				}
+				while(level.sndfuelpieces == num_fuel) wait 0.05;
 				return 1;
 			
 			default:
@@ -97,7 +127,9 @@ isFlag(splitName)
 	{
 		case "nixie_code":
 		case "last_audio_log":
-		case "gondola_in_motion_1":
+		case "enter_chair":
+		case "fuel_grabbed":
+		case "2_fuel_grabbed":
 			return 0;
 			
 		default:
@@ -107,5 +139,6 @@ isFlag(splitName)
 
 showConnectMessage()
 { 
-	self iprintln("^4github.com/HuthTV ^7- MotD EE autosplitter"); 
+	self iprintlnbold("^6github^7.^6com^7/^6HuthTV ^7- MotD EE autosplitter"); 
 }
+
