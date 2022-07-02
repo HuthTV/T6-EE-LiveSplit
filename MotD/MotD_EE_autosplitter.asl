@@ -8,7 +8,6 @@ state("t6zmv41", "Redacted")
 //Plutonium
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
-	int tick:	0x002AA13C, 0x14;		//Tick counter	 
 	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
 }
 
@@ -36,14 +35,13 @@ startup
 		{"infirmary_fuel", "Infirmary fuel"},
 		{"fly_2", "2nd Flight"},
 		{"enter_chair_2", "2nd bridge leave"},
-		{"two_fuel", "Laundry fuel"},
-		{"fuel_3", "Lighthouse fuel"},
-		{"fuel_4", "Docks fuel"},
+		{"fuel_1", "Laundry fuel"},
+		{"fuel_2", "Lighthouse fuel"},
+		{"fuel_3", "Docks fuel"},
 		{"gondola_3", "3rd gondola ride"},
 		{"fuel_5", "Infirmary fuel"},
 		{"fly_3", "3rd Flight"},
 		{"enter_chair_3", "3rd bridge leave"},	
-		{"blundergat_obtained", "Blundergat grabbed"},
 		{"nixie_code", "Prisoner codes entered"},
 		{"audio_tour_finished", "Last audio log ended"},
 	};
@@ -70,16 +68,15 @@ startup
 		{15, "infirmary_fuel"},
 		{16, "fly_2"},
 		{17, "enter_chair_2"},
-		{18, "two_fuel"},
-		{19, "fuel_3"},
-		{20, "fuel_4"},
+		{18, "fuel_1"},
+		{19, "fuel_2"},
+		{20, "fuel_3"},
 		{21, "gondola_3"},
 		{22, "fuel_5"},
 		{23, "fly_3"},
 		{24, "enter_chair_3"},
-		{25, "blundergat_obtained"},
-		{26, "nixie_code"},
-		{27, "audio_tour_finished"},
+		{25, "nixie_code"},
+		{26, "audio_tour_finished"},
 	};
 }
 

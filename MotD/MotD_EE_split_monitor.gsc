@@ -44,16 +44,15 @@ splitMonitor()
 			"fuel_grabbed",					//Wardens fuel
 			"gondola_in_motion",			//2nd gondola
 			"fuel_grabbed",					//Docks fuel
-			"fuel_grabbed",					//Lighthouse fuel
 			"fuel_grabbed",					//Laundry fuel
 			"fuel_grabbed",					//Infirmary fuel
 			"plane_boarded",				//Flight 2
 			"enter_chair",					//Bridge 2 leave
-			"2_fuel_grabbed", 				//2 fuel grabbed
-			"fuel_grabbed",					//3rd fuel
-			"fuel_grabbed",					//4th fuel
+			"fuel_grabbed", 				//Laundry fuel
+			"fuel_grabbed",					//Lighthouse fuel
+			"fuel_grabbed",					//Docks fuel
 			"gondola_in_motion",			//3rd gondola
-			"fuel_grabbed",					//5th fuel
+			"5_fuel_grabbed",				//5th fuel
 			"plane_boarded",				//Flight 3
 			"enter_chair",					//Bridge 3 leave
 			"warden_blundergat_obtained",	//Gat grabbed
@@ -94,8 +93,8 @@ checkSplit(split, isFlag)
 				while(level.characters_in_nml.size == 1) wait 0.05;
 				return 1;
 
-			case "2_fuel_grabbed":
-				while(level.sndfuelpieces != 2) wait 0.05;
+			case "5_fuel_grabbed":
+				while(level.sndfuelpieces != 5) wait 0.05;
 				return 1;
 
 			case "fuel_grabbed":
@@ -129,7 +128,7 @@ isFlag(splitName)
 		case "last_audio_log":
 		case "enter_chair":
 		case "fuel_grabbed":
-		case "2_fuel_grabbed":
+		case "5_fuel_grabbed":
 			return 0;
 			
 		default:
