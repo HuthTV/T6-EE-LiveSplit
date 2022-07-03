@@ -44,18 +44,16 @@ splitMonitor()
 			"fuel_grabbed",					//Wardens fuel
 			"gondola_in_motion",			//2nd gondola
 			"fuel_grabbed",					//Docks fuel
+			"fuel_grabbed",					//Lighthouse fuel
 			"fuel_grabbed",					//Laundry fuel
-			"fuel_grabbed",					//Infirmary fuel
 			"plane_boarded",				//Flight 2
 			"enter_chair",					//Bridge 2 leave
 			"fuel_grabbed", 				//Laundry fuel
 			"fuel_grabbed",					//Lighthouse fuel
 			"fuel_grabbed",					//Docks fuel
 			"gondola_in_motion",			//3rd gondola
-			"5_fuel_grabbed",				//5th fuel
 			"plane_boarded",				//Flight 3
 			"enter_chair",					//Bridge 3 leave
-			"warden_blundergat_obtained",	//Gat grabbed
 			"nixie_code",					//Codes enterd
 			"last_audio_log");				//Last log
 	
@@ -138,6 +136,6 @@ isFlag(splitName)
 
 showConnectMessage()
 { 
-	self iprintlnbold("^6github^7.^6com^7/^6HuthTV ^7- MotD EE autosplitter"); 
+	self iprintlnbold("^6github^7.^6com^7/^6HuthTV ^7- MotD EE autosplitter ^6v19.1"); 
 }
 
