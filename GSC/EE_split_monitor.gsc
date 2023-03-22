@@ -75,7 +75,7 @@ split_monitor()
     }
     else if(level.script == "zm_tomb")
     {
-        splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|all_staffs_placed|end_game", "|"); 
+        splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|end_game", "|"); 
     }
     else if(level.script == "zm_transit" &&  level.scr_zm_ui_gametype_group == "zclassic")
     {
@@ -121,7 +121,7 @@ check_split(split, is_flag)
              //origins nonflags
             case "boxes":
                 while(level.n_soul_boxes_completed < 4) wait 0.05;
-                wait 4;
+                wait 4.3;
                 break;
                 
             case "staff_1_crafted":
@@ -129,7 +129,7 @@ check_split(split, is_flag)
             case "staff_3_crafted":
             case "staff_4_crafted":
                 curr = level.n_staffs_crafted;
-                while(curr <= level.n_staffs_crafted) wait 0.05;
+                while(curr == level.n_staffs_crafted && level.n_staffs_crafted < 4) wait 0.05;
                 break;
 
             case "end_game":
@@ -174,7 +174,6 @@ is_flag(split_name)
 		case "staff_3_crafted":
 		case "staff_4_crafted":
         case "boxes":
-		case "all_staffs_placed":
 		case "end_game":
 
         //tranzit nonflags
@@ -191,6 +190,6 @@ is_flag(split_name)
 show_connect_message()
 { 
     self waittill( "spawned_player" );
-    wait 3;
+    wait 1;
 	self iprintln("Livesplit monitor " + level.version + " | github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
 }

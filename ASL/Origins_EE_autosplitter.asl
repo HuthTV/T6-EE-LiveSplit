@@ -29,7 +29,6 @@ startup
 		{"staff_3", "Staff 3 crafted"},
 		{"staff_4", "Staff 4 crafted"},
 		{"ee_all_staffs_placed", "Ascend from darkness (Staffs placed in robots)"},
-		{"all_staffs_placed", "All staffs placed in crazyplace"},
 		{"end_game", "Freedom (Game ended)"},
 	 };
 	 
@@ -45,8 +44,7 @@ startup
 		{5, "staff_3"},
 		{6, "staff_4"},
 		{7, "ee_all_staffs_placed"},
-		{8, "all_staffs_placed"},
-		{9, "end_game"},
+		{8, "end_game"},
 	 };
 }
 
