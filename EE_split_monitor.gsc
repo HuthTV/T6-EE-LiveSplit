@@ -7,12 +7,13 @@
 
 init()
 {
+    level.version = "V2.0";
+    level.start_condition = 116;
     level.split_dvar = "league_leaderboardRefetchTime";     //communicate split progress
     level.time_dvar = "league_teamLeagueInfoRefetchTime";   //communicate gametime
-    level.start_condition = 116;
-    level.split = 0;
     
 	set_split(0);
+    level.split = 0;
     level thread on_player_connect();
 }
 
@@ -28,7 +29,8 @@ on_player_connect()
     }
     else
     {
-        player iPrintLn("EE split monitor ^1disabled ^7| not a solo game");
+        if( (level.script == "zm_transit" &&  level.scr_zm_ui_gametype_group == "zclassic") || level.script == "zm_tomb" || level.script == "zm_prison")
+            player iPrintLn("EE split monitor ^1disabled ^7| not a solo game");
     }	
 }
 
@@ -189,5 +191,5 @@ show_connect_message()
 { 
     self waittill( "spawned_player" );
     wait 3;
-	self iprintln("Livesplit monitor v2.0 | github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
+	self iprintln("Livesplit monitor " + level.version + " | github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
 }
