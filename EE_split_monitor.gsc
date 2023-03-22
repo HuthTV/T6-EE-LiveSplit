@@ -74,7 +74,7 @@ split_monitor()
     {
         splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|all_staffs_placed|end_game", "|"); 
     }
-    else if(level.script == "zm_transit")
+    else if(level.script == "zm_transit" &&  level.scr_zm_ui_gametype_group == "zclassic")
     {
         splits = strtok("jetgun|tower|end", "|");
     }
@@ -115,7 +115,6 @@ check_split(split, is_flag)
 				while( isdefined(level.m_headphones) ) wait 0.05;
 				break;
 			
-			
              //origins nonflags
             case "boxes":
                 while(level.n_soul_boxes_completed < 4) wait 0.05;
@@ -134,7 +133,18 @@ check_split(split, is_flag)
                 level waittill("end_game");
                 break;
 
-            //transit nonflags	
+            //transit nonflags
+            case "jetgun": 
+            while(level.sq_progress["rich"]["A_jetgun_built"] == 0) wait 0.05;
+            break;
+
+            case "tower":
+                while(level.sq_progress["rich"]["A_jetgun_tower"] == 0) wait 0.05;
+                break;
+                
+            case "end":
+                while(level.sq_progress["rich"]["FINISHED"] == 0) wait 0.05;
+                break;
 		}
 	}
 
@@ -177,6 +187,7 @@ is_flag(split_name)
 
 show_connect_message()
 { 
-    flag_wait("initial_blackscreen_passed");
-	self iprintln("^6github^7.^6com^7/^6HuthTV ^7- EE autosplitter ^6v2.0"); 
+    self waittill( "spawned_player" );
+    wait 3;
+	self iprintln("Livesplit monitor v2.0 | github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
 }
