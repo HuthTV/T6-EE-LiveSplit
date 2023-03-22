@@ -1,27 +1,30 @@
 //Redacted
 state("t6zmv41", "Redacted")
 {
-	int tick:	0x002AA13C, 0x14;		//Tick counter	
-	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
+	int tick:	0x002AA13C, 0x14;	//Tick counter
+	int gametime: 0x0262B300;		//Game time (ms)
+	int splittime: 0x0262B2A0;		//Split time (ms)
 }
 
 //Plutonium
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
-	int tick:	0x002AA13C, 0x14;		//Tick counter	 
-	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
+	int tick:	0x002AA13C, 0x14;	//Tick counter		
+	int gametime: 0x0262B300;		//Game time (ms)
+	int splittime: 0x0262B2A0;		//Split time (ms)
 }
 
 startup
 {
-	refreshRate = 20;
+	refreshRate = 200;
+	vars.startvalue = 116;
 	settings.Add("splits", true, "Splits");
 	
 	vars.split_names = new Dictionary<string,string> 
 	{
 		{"jetgun_built", "Jetgun built"},
+		{"tower_heated", "Tower heated"},
 		{"ee_complete", "Easter egg completed"},
-		{"lights_on", "Blue lights turned on"}
 	 };
 	 
 	foreach(var Split in vars.split_names)
@@ -30,17 +33,15 @@ startup
 	vars.split_index = new Dictionary<int,string> 
 	{
 		{1, "jetgun_built"},
-		{2, "ee_complete"},
-		{3, "lights_on"}
+		{2, "tower_heated"},
+		{3, "ee_complete"},
 	 };
 }
 
-
 start
 {
-	if(current.maxping == 115 && current.tick > 0)
+	if( current.splittime == vars.startvalue && current.tick > 0)
 	{
-		vars.starttick = current.tick;
 		vars.split = 0;
 		return true;
 	} 
@@ -53,21 +54,39 @@ reset
 
 gameTime
 {
-	return TimeSpan.FromMilliseconds( (current.tick - vars.starttick) * 50);
+	return TimeSpan.FromMilliseconds( current.gametime );
 }
 
 isLoading
 {
-	timer.CurrentPhase = ( current.tick == old.tick ? TimerPhase.Paused : TimerPhase.Running );
-	return false;
+	if(current.tick == old.tick)
+	{
+		if(vars.pauseticks > refreshRate/60 )
+		{
+			timer.CurrentPhase = TimerPhase.Paused;
+			return true;
+		}
+		else
+		{
+			vars.pauseticks++;
+			return false;
+		}
+			
+	}	
+	else
+	{
+		vars.pauseticks = 0;
+		timer.CurrentPhase = TimerPhase.Running;
+		return false;
+	}
 }
 
 split
 {
-	if(current.maxping > vars.split && current.maxping < 100)
+	if(current.splittime > vars.split && current.splittime < vars.startvalue)
 	{
 		vars.split++;
 		if(settings[vars.split_index[vars.split]])
-			return true;
+			return true;		
 	}
 }

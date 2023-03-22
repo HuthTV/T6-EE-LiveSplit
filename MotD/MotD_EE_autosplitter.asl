@@ -16,7 +16,6 @@ state("plutonium-bootstrapper-win32", "Plutonium")
 
 startup
 {
-	vars.split = 0;
 	refreshRate = 200;
 	vars.startvalue = 116;
 	settings.Add("splits", true, "Splits");
@@ -53,7 +52,7 @@ startup
 
 start
 {
-	if( current.splittime == vars.startvalue && current.tick > 0) //find and use map address
+	if( current.splittime == vars.startvalue && current.tick > 0)
 	{
 		vars.split = 0;
 		return true;

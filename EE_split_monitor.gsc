@@ -15,12 +15,26 @@ init()
 	set_split(0);
     level.split = 0;
     level thread on_player_connect();
+    level thread track();
+}
+
+track()
+{
+    flag_wait("initial_blackscreen_passed");
+    wait 1;
+    print("start time: " + level.level_start_time);
+    while(1)
+    {
+        print("split: " + level.split);
+        print("last split: " + level.last_split_time);
+        wait 1;
+    }
 }
 
 on_player_connect()
 {
 	level waittill("connecting", player);
-    if(isDefined( level.is_forever_solo_game ) && level.is_forever_solo_game)
+    if(level.is_forever_solo_game)
     {
 	    player thread show_connect_message();
         level thread start_monitor();
@@ -53,10 +67,11 @@ livesplit_updater()
         if(level.split > split && level.split < level.start_condition)
         {
             setDvar(level.time_dvar, level.last_split_time - level.level_start_time);
+            split = level.split;
+
             wait_network_frame();
             set_split(split);
             wait_network_frame();
-            split = level.split;
         }
         else
         {
