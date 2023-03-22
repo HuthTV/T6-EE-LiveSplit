@@ -15,20 +15,6 @@ init()
 	set_split(0);
     level.split = 0;
     level thread on_player_connect();
-    level thread track();
-}
-
-track()
-{
-    flag_wait("initial_blackscreen_passed");
-    wait 1;
-    print("start time: " + level.level_start_time);
-    while(1)
-    {
-        print("split: " + level.split);
-        print("last split: " + level.last_split_time);
-        wait 1;
-    }
 }
 
 on_player_connect()
