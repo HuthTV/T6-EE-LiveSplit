@@ -1,42 +1,35 @@
 //Redacted
 state("t6zmv41", "Redacted")
 {
-	int tick:	0x002AA13C, 0x14;		//Tick counter	
-	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
+	int tick:	0x002AA13C, 0x14;	//Tick counter
+	int gametime: 0x0262B300;		//Game time (ms)
+	int splittime: 0x0262B2A0;		//Split time (ms)
 }
 
 //Plutonium
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
-	int tick:	0x002AA13C, 0x14;		//Tick counter	 
-	int maxping:	0x024B6880, 0x18;		//Maxping DVAR
+	int tick:	0x002AA13C, 0x14;	//Tick counter		
+	int gametime: 0x0262B300;		//Game time (ms)
+	int splittime: 0x0262B2A0;		//Split time (ms)
 }
 
 startup
 {
-	refreshRate = 20;
+	refreshRate = 200;
+	vars.startvalue = 116;
 	settings.Add("splits", true, "Splits");
 	
 	vars.split_names = new Dictionary<string,string> 
 	{
 		{"no_mans_land", "No mans land open"},
-		{"soul_chest_1", "Chest 1 filled"},
-		{"soul_chest_2", "Chest 2 filled"},
-		{"soul_chest_3", "Chest 3 filled"},
-		{"soul_chest_4", "Chest 4 filled"},
+		{"soul_chests", "All chest filled"},
 		{"staff_1", "Staff 1 crafted"},
-		{"beacon_zm", "G-Strike beacon equipped"},
 		{"staff_2", "Staff 2 crafted"},
 		{"staff_3", "Staff 3 crafted"},
 		{"staff_4", "Staff 4 crafted"},
-		{"ee_all_staffs_upgraded", "Secure the keys (Staffs upgraded)"},
 		{"ee_all_staffs_placed", "Ascend from darkness (Staffs placed in robots)"},
-		{"ee_mech_zombie_hole_opened", "Rain fire (Seal broken)"},
-		{"ee_mech_zombie_fight_completed", "Unleash the horde (Panzers killed)"},
-		{"ee_maxis_drone_retrieved", "Skewer the winged beast (Maxis drone retrieved)"},
-		{"ee_all_players_upgraded_punch", "Wield a fist of iron (Punch upgraded)"},
 		{"all_staffs_placed", "All staffs placed in crazyplace"},
-		{"ee_souls_absorbed", "Raise hell (Crazy place souls filled)"},
 		{"end_game", "Freedom (Game ended)"},
 	 };
 	 
@@ -46,33 +39,21 @@ startup
 	vars.split_index = new Dictionary<int,string> 
 	{
 		{1, "no_mans_land"},
-		{2, "soul_chest_1"},
-		{3, "soul_chest_2"},
-		{4, "soul_chest_3"},
-		{5, "soul_chest_4"},
-		{6, "staff_1"},
-		{7, "beacon_zm"},
-		{8, "staff_2"},
-		{9, "staff_3"},
-		{10, "staff_4"},
-		{11, "ee_all_staffs_upgraded"},
-		{12, "ee_all_staffs_placed"},
-		{13, "ee_mech_zombie_hole_opened"},
-		{14, "ee_mech_zombie_fight_completed"},
-		{15, "ee_maxis_drone_retrieved"},
-		{16, "ee_all_players_upgraded_punch"},
-		{17, "all_staffs_placed"},
-		{18, "ee_souls_absorbed"},
-		{19, "end_game"},
+		{2, "soul_chests"},
+		{3, "staff_1"},
+		{4, "staff_2"},
+		{5, "staff_3"},
+		{6, "staff_4"},
+		{7, "ee_all_staffs_placed"},
+		{8, "all_staffs_placed"},
+		{9, "end_game"},
 	 };
 }
 
-
 start
 {
-	if(current.maxping == 115 && current.tick > 0)
+	if( current.splittime == vars.startvalue && current.tick > 0)
 	{
-		vars.starttick = current.tick;
 		vars.split = 0;
 		return true;
 	} 
@@ -83,23 +64,42 @@ reset
 	return current.tick == 0;	
 }
 
+
 gameTime
 {
-	return TimeSpan.FromMilliseconds( (current.tick - vars.starttick) * 50);
+	return TimeSpan.FromMilliseconds( current.gametime );
 }
 
 isLoading
 {
-	timer.CurrentPhase = ( current.tick == old.tick ? TimerPhase.Paused : TimerPhase.Running );
-	return false;
+	if(current.tick == old.tick)
+	{
+		if(vars.pauseticks > refreshRate/60 )
+		{
+			timer.CurrentPhase = TimerPhase.Paused;
+			return true;
+		}
+		else
+		{
+			vars.pauseticks++;
+			return false;
+		}
+			
+	}	
+	else
+	{
+		vars.pauseticks = 0;
+		timer.CurrentPhase = TimerPhase.Running;
+		return false;
+	}
 }
 
 split
 {
-	if(current.maxping > vars.split && current.maxping < 100)
+	if(current.splittime > vars.split && current.splittime < vars.startvalue)
 	{
 		vars.split++;
 		if(settings[vars.split_index[vars.split]])
-			return true;
+			return true;		
 	}
 }
