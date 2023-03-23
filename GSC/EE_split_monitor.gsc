@@ -7,7 +7,7 @@
 
 init()
 {
-    level.version = "V2.0";
+    level.split_monitor_version = "V2.0";
     level.start_condition = 116;
     level.split_dvar = "league_leaderboardRefetchTime";     //communicate split progress
     level.time_dvar = "league_teamLeagueInfoRefetchTime";   //communicate gametime
@@ -30,13 +30,13 @@ on_player_connect()
     else
     {
         if( (level.script == "zm_transit" &&  level.scr_zm_ui_gametype_group == "zclassic") || level.script == "zm_tomb" || level.script == "zm_prison")
-            player iPrintLn("EE split monitor ^1disabled ^7| not a solo game");
+            player iprintln("EE split monitor ^1disabled ^7| not a solo game");
     }	
 }
 
 start_monitor()
 {
-    setDvar(level.time_dvar, 0);
+    setdvar(level.time_dvar, 0);
 	flag_wait("initial_blackscreen_passed");
     level.level_start_time = getTime();
 	set_split(level.start_condition);
@@ -52,7 +52,7 @@ livesplit_updater()
     {
         if(level.split > split && level.split < level.start_condition)
         {
-            setDvar(level.time_dvar, level.last_split_time - level.level_start_time);
+            setdvar(level.time_dvar, level.last_split_time - level.level_start_time);
             split = level.split;
 
             wait_network_frame();
@@ -61,7 +61,7 @@ livesplit_updater()
         }
         else
         {
-            setDvar(level.time_dvar, (getTime() - level.level_start_time));
+            setdvar(level.time_dvar, (gettime() - level.level_start_time));
         }
         wait 0.05;
     }
@@ -151,12 +151,12 @@ check_split(split, is_flag)
 		}
 	}
 
-    return GetTime();
+    return gettime();
 }
 
 set_split(val)
 {
-	setDvar(level.split_dvar, val);
+	setdvar(level.split_dvar, val);
 }
 
 is_flag(split_name)
@@ -190,6 +190,5 @@ is_flag(split_name)
 show_connect_message()
 { 
     self waittill( "spawned_player" );
-    wait 1;
-	self iprintln("Livesplit monitor " + level.version + " | github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
+	self iprintln("^6Livesplit Monitor ^5" + level.split_monitor_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
 }

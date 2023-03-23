@@ -3,7 +3,7 @@ state("t6zmv41", "Redacted")
 {
 	int tick:	0x002AA13C, 0x14;	//Tick counter
 	int gametime: 0x0262B300;		//Game time (ms)
-	int splittime: 0x0262B2A0;		//Split time (ms)
+	int splitval: 0x0262B2A0;		//Split value
 }
 
 //Plutonium
@@ -11,7 +11,7 @@ state("plutonium-bootstrapper-win32", "Plutonium")
 {
 	int tick:	0x002AA13C, 0x14;	//Tick counter		
 	int gametime: 0x0262B300;		//Game time (ms)
-	int splittime: 0x0262B2A0;		//Split time (ms)
+	int splitval: 0x0262B2A0;		//Split value
 }
 
 startup
@@ -40,7 +40,7 @@ startup
 
 start
 {
-	if( current.splittime == vars.startvalue && current.tick > 0)
+	if( current.splitval == vars.startvalue && current.tick > 0)
 	{
 		vars.split = 0;
 		return true;
@@ -70,8 +70,7 @@ isLoading
 		{
 			vars.pauseticks++;
 			return false;
-		}
-			
+		}		
 	}	
 	else
 	{
@@ -83,7 +82,7 @@ isLoading
 
 split
 {
-	if(current.splittime > vars.split && current.splittime < vars.startvalue)
+	if(current.splitval > vars.split && current.splitval < vars.startvalue)
 	{
 		vars.split++;
 		if(settings[vars.split_index[vars.split]])
