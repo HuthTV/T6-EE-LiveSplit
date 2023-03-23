@@ -13,8 +13,8 @@ Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically
 
    ![Layout](https://i.imgur.com/fywHDRt.png "Layout")
   
-4. Right LiveSplit and choose `Edit Layout...` Open Scriptable Auto Splitter component (or add one first). Point script path at `.asl` file for the map.
+4. Right click LiveSplit and choose `Edit Layout...` Open Scriptable Auto Splitter component (or add one first). Point script path at the `.asl` file for the map.
 
    ![Layout](https://i.imgur.com/aOkBIdd.png "ASL")
 
-5. You can now start running! Make sure to have LiveSplit open before you start the game.
+5. You can now start running! Make sure to open LiveSplit before starting game.
