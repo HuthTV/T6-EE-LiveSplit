@@ -33,7 +33,7 @@ startup
 	 };
 	 
 	foreach(var Split in vars.split_names)
-		settings.Add(Split.Key, false, Split.Value, "splits");
+		settings.Add(Split.Key, true, Split.Value, "splits");
 	 
 	vars.split_index = new Dictionary<int,string> 
 	{
