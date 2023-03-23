@@ -12,17 +12,17 @@ init()
     level.split_dvar = "league_leaderboardRefetchTime";     //communicate split progress
     level.time_dvar = "league_teamLeagueInfoRefetchTime";   //communicate gametime
     
-	set_split(0);
+    set_split(0);
     level.split = 0;
     level thread on_player_connect();
 }
 
 on_player_connect()
 {
-	level waittill("connecting", player);
+    level waittill("connecting", player);
     if(level.is_forever_solo_game)
     {
-	    player thread show_connect_message();
+        player thread show_connect_message();
         level thread start_monitor();
         level thread livesplit_updater();
         level thread split_monitor();
@@ -37,9 +37,9 @@ on_player_connect()
 start_monitor()
 {
     setdvar(level.time_dvar, 0);
-	flag_wait("initial_blackscreen_passed");
+    flag_wait("initial_blackscreen_passed");
     level.level_start_time = getTime();
-	set_split(level.start_condition);
+    set_split(level.start_condition);
 }
 
 livesplit_updater()
@@ -54,7 +54,6 @@ livesplit_updater()
         {
             setdvar(level.time_dvar, level.last_split_time - level.level_start_time);
             split = level.split;
-
             wait_network_frame();
             set_split(split);
             wait_network_frame();
@@ -86,39 +85,39 @@ split_monitor()
     wait_network_frame();
     set_split(0);
 
-	while(level.split < splits.size)
-	{		
-		level.last_split_time = check_split(splits[level.split], is_flag(splits[level.split]));		
-		level.split++;
-	}
+    while(level.split < splits.size)
+    {		
+        level.last_split_time = check_split(splits[level.split], is_flag(splits[level.split]));		
+        level.split++;
+    }
 }
 
 check_split(split, is_flag)
 {
-	if(is_flag)
-	{
-		flag_wait(split);
-	}
-	else
-	{
-		switch(split)
-		{
+    if(is_flag)
+    {
+        flag_wait(split);
+    }
+    else
+    {
+        switch(split)
+        {
             //mob nonflags
-		    case "gondola_in_motion1":
+            case "gondola_in_motion1":
                 flag_wait("fueltanks_found");
                 flag_wait("gondola_in_motion");
-				break;
+                break;
 
-			case "nixie_code":
-				level waittill_multiple("nixie_final_" + 386, "nixie_final_" + 481, "nixie_final_" + 101, "nixie_final_" + 872);
-				break;
-			
-			case "last_audio_log":
-				wait 45;
-				while( isdefined(level.m_headphones) ) wait 0.05;
-				break;
-			
-             //origins nonflags
+            case "nixie_code":
+                level waittill_multiple("nixie_final_" + 386, "nixie_final_" + 481, "nixie_final_" + 101, "nixie_final_" + 872);
+                break;
+            
+            case "last_audio_log":
+                wait 45;
+                while( isdefined(level.m_headphones) ) wait 0.05;
+                break;
+            
+                //origins nonflags
             case "boxes":
                 while(level.n_soul_boxes_completed < 4) wait 0.05;
                 wait 4.3;
@@ -148,47 +147,47 @@ check_split(split, is_flag)
             case "end":
                 while(level.sq_progress["rich"]["FINISHED"] == 0) wait 0.05;
                 break;
-		}
-	}
+            }
+        }
 
     return gettime();
 }
 
 set_split(val)
 {
-	setdvar(level.split_dvar, val);
+    setdvar(level.split_dvar, val);
 }
 
 is_flag(split_name)
 {
-	switch(split_name)
-	{
+    switch(split_name)
+    {
         //mob nonflags
         case "gondola_in_motion1":
-		case "nixie_code":
-		case "last_audio_log":
+        case "nixie_code":
+        case "last_audio_log":
 
         //origins nonflags
         case "staff_1_crafted":
-		case "staff_2_crafted":
-		case "staff_3_crafted":
-		case "staff_4_crafted":
+        case "staff_2_crafted":
+        case "staff_3_crafted":
+        case "staff_4_crafted":
         case "boxes":
-		case "end_game":
+        case "end_game":
 
         //tranzit nonflags
         case "jetgun":
         case "tower":
         case "end":
-			return 0;
-			
-		default:
-			return 1;
-	}
+            return 0;
+            
+        default:
+            return 1;
+    }
 }
 
 show_connect_message()
 { 
     self waittill( "spawned_player" );
-	self iprintln("^6Livesplit Monitor ^5" + level.split_monitor_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
+    self iprintln("^6Livesplit Monitor ^5" + level.split_monitor_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
 }
