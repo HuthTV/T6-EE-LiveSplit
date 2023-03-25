@@ -7,7 +7,7 @@
 
 init()
 {
-    level.split_monitor_version = "V2.0";
+    level.split_monitor_version = "V2.1";
     level.start_condition = 116;
     level.split_dvar = "league_leaderboardRefetchTime";     //communicate split progress
     level.time_dvar = "league_teamLeagueInfoRefetchTime";   //communicate gametime
