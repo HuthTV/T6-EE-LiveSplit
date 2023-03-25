@@ -79,6 +79,7 @@ split_monitor()
     else if(level.script == "zm_transit" &&  level.scr_zm_ui_gametype_group == "zclassic")
     {
         splits = strtok("jetgun|tower|end", "|");
+        upgrades();
     }
 
     flag_wait("initial_blackscreen_passed");
@@ -147,8 +148,8 @@ check_split(split, is_flag)
             case "end":
                 while(level.sq_progress["rich"]["FINISHED"] == 0) wait 0.05;
                 break;
-            }
         }
+    }
 
     return gettime();
 }
@@ -189,5 +190,64 @@ is_flag(split_name)
 show_connect_message()
 { 
     self waittill( "spawned_player" );
+    if(is_tranzit())
+        self thread persistent_upgrades_bank();
+
     self iprintln("^6Livesplit Monitor ^5" + level.split_monitor_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
+}
+
+upgrades()
+{
+    level.persistent_upgrades = [];
+    
+    foreach(upgrade in level.pers_upgrades)
+    {
+        for(i = 0; i < upgrade.stat_names.size; i++)
+        { 
+            level.persistent_upgrades[level.persistent_upgrades.size] = upgrade.stat_names[i];
+        }
+    }
+  
+    create_bool_dvar( "pers_insta_kill", 0 );
+    create_bool_dvar( "full_bank", 1 );
+
+    foreach(pers_perk in level.persistent_upgrades)
+	{
+        if(pers_perk != "pers_insta_kill")
+            create_bool_dvar( pers_perk, 1 );
+	}
+}
+
+is_tranzit()
+{
+	return level.script == "zm_transit" &&  level.scr_zm_ui_gametype_group == "zclassic";
+}
+
+persistent_upgrades_bank()
+{
+    foreach(upgrade in level.pers_upgrades)
+    {
+        for(i = 0; i < upgrade.stat_names.size; i++)
+        {
+            val = 0;
+            if(getDvarInt(upgrade.stat_names[i]))
+                val = upgrade.stat_desired_values[i];
+
+            self maps\mp\zombies\_zm_stats::set_client_stat(upgrade.stat_names[i], val);
+            wait_network_frame();
+        }
+    }
+
+    bank_points = (getdvarint("full_bank") > 0) * 250;
+	if(bank_points)
+	{
+		self maps\mp\zombies\_zm_stats::set_map_stat("depositBox", bank_points, level.banking_map);
+		self.account_value = bank_points;
+	}
+}
+
+create_bool_dvar( dvar, start_val )
+{
+    if( getdvar( dvar ) == "" ) 
+		setdvar( dvar, start_val);
 }

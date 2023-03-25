@@ -1,7 +1,7 @@
 //Redacted
 state("t6zmv41", "Redacted")
 {
-	int tick:     0x002AA13C, 0x14;	//Tick counter
+	int tick:     0x002AA13C, 0x14;		//Tick counter
 	int gametime: 0x0262B300;		//Game time (ms)
 	int splitval: 0x0262B2A0;		//Split value
 }
