@@ -7,39 +7,39 @@
 
 init()
 {
-    level.split_monitor_version = "V2.1";
-    level.start_condition = 116;
-    level.split_dvar = "league_leaderboardRefetchTime";     //communicate split progress
-    level.time_dvar = "league_teamLeagueInfoRefetchTime";   //communicate gametime
+    level.eem_version = "V2.1";
+    level.eem_start_value = 116;
+    level.eem_split_dvar = "league_leaderboardRefetchTime";     //communicate split progress
+    level.eem_time_dvar = "league_teamLeagueInfoRefetchTime";   //communicate gametime
+    level.eem_split_num = 0;
     
-    set_split(0);
-    level.split = 0;
+    setdvar(level.eem_split_dvar, 0);
+    if(is_tranzit()) level thread upgrade_dvars();
     level thread on_player_connect();
 }
 
 on_player_connect()
 {
-    level waittill("connecting", player);
+    level endon( "game_ended" );
+    level waittill( "connected", player );
     if(level.is_forever_solo_game)
     {
-        player thread show_connect_message();
         level thread start_monitor();
         level thread livesplit_updater();
         level thread split_monitor();
+        if(is_tranzit()) self thread persistent_upgrades_bank();
     }
-    else
-    {
-        if( (level.script == "zm_transit" &&  level.scr_zm_ui_gametype_group == "zclassic") || level.script == "zm_tomb" || level.script == "zm_prison")
-            player iprintln("EE split monitor ^1disabled ^7| not a solo game");
-    }	
+    
+    self waittill( "spawned_player" );
+    player show_spawn_message(); 
 }
 
 start_monitor()
 {
-    setdvar(level.time_dvar, 0);
+    setdvar(level.eem_time_dvar, 0);
     flag_wait("initial_blackscreen_passed");
     level.level_start_time = getTime();
-    set_split(level.start_condition);
+    setdvar(level.eem_split_dvar, level.eem_start_value);
 }
 
 livesplit_updater()
@@ -50,17 +50,17 @@ livesplit_updater()
     
     while(true)
     {
-        if(level.split > split && level.split < level.start_condition)
+        if(level.eem_split_num > split && level.eem_split_num < level.eem_start_value)
         {
-            setdvar(level.time_dvar, level.last_split_time - level.level_start_time);
-            split = level.split;
+            setdvar(level.eem_time_dvar, level.last_split_time - level.level_start_time);
+            split = level.eem_split_num;
             wait_network_frame();
-            set_split(split);
+            setdvar(level.eem_split_dvar, level.eem_start_value);
             wait_network_frame();
         }
         else
         {
-            setdvar(level.time_dvar, (gettime() - level.level_start_time));
+            setdvar(level.eem_time_dvar, (gettime() - level.level_start_time));
         }
         wait 0.05;
     }
@@ -84,12 +84,12 @@ split_monitor()
 
     flag_wait("initial_blackscreen_passed");
     wait_network_frame();
-    set_split(0);
+    setdvar(level.eem_split_dvar, 0);
 
-    while(level.split < splits.size)
+    while(level.eem_split_num < splits.size)
     {		
-        level.last_split_time = check_split(splits[level.split], is_flag(splits[level.split]));		
-        level.split++;
+        level.last_split_time = check_split(splits[level.eem_split_num], is_flag(splits[level.eem_split_num]));		
+        level.eem_split_num++;
     }
 }
 
@@ -154,11 +154,6 @@ check_split(split, is_flag)
     return gettime();
 }
 
-set_split(val)
-{
-    setdvar(level.split_dvar, val);
-}
-
 is_flag(split_name)
 {
     switch(split_name)
@@ -187,35 +182,24 @@ is_flag(split_name)
     }
 }
 
-show_connect_message()
+show_spawn_message()
 { 
-    self waittill( "spawned_player" );
-    if(is_tranzit())
-        self thread persistent_upgrades_bank();
-
-    self iprintln("^6Livesplit Monitor ^5" + level.split_monitor_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
+    self iprintln("^6Livesplit Monitor ^5" + level.eem_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters"); 
 }
 
-upgrades()
+upgrade_dvars()
 {
-    level.persistent_upgrades = [];
-    
     foreach(upgrade in level.pers_upgrades)
     {
-        for(i = 0; i < upgrade.stat_names.size; i++)
-        { 
-            level.persistent_upgrades[level.persistent_upgrades.size] = upgrade.stat_names[i];
-        }
+        foreach(stat_name in upgrade.stat_names)
+            level.eet_upgrades[level.eet_upgrades.size] = stat_name;
     }
   
-    create_bool_dvar( "pers_insta_kill", 0 );
-    create_bool_dvar( "full_bank", 1 );
-
-    foreach(pers_perk in level.persistent_upgrades)
-	{
-        if(pers_perk != "pers_insta_kill")
-            create_bool_dvar( pers_perk, 1 );
-	}
+    create_bool_dvar("full_bank", 1);
+    create_bool_dvar("pers_insta_kill", 0);
+    
+    foreach(pers_perk in level.eet_upgrades)
+        create_bool_dvar(pers_perk, 1);
 }
 
 is_tranzit()
