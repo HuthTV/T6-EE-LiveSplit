@@ -3,6 +3,9 @@ Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically
 [[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.1/timer_scripts_only_2.1.zip)] - Scripts only  
 [[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.1/timer_scripts_and_livesplit_files_2.1.zip)] - Scripts & livesplit files  
 
+[[Youtube](https://youtu.be/E85iosd-4-8)] - video guide  
+
+
 ## Setup
 1. Download LiveSplit [livesplit.org/downloads](https://livesplit.org/downloads/)
 
