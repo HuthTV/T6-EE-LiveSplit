@@ -76,7 +76,7 @@ split_monitor()
     }
     else if(level.script == "zm_tomb")
     {
-        splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|end_game", "|");
+        splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|ee_mech_zombie_hole_opened|end_game", "|");
     }
     else if(level.script == "zm_transit")
     {
