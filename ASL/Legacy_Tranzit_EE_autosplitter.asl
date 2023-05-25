@@ -22,17 +22,17 @@ startup
 		{"jetgun_built", "Jetgun built"},
 		{"tower_heated", "Tower heated"},
 		{"ee_complete", "Easter egg completed"}
-	 };
+	};
 
 	foreach(var Split in vars.split_names)
-		settings.Add(Split.Key, false, Split.Value, "splits");
+		settings.Add(Split.Key, true, Split.Value, "splits");
 
 	vars.split_index = new Dictionary<int,string>
 	{
 		{1, "jetgun_built"},
 		{2, "tower_heated"},
 		{3, "ee_complete"}
-	 };
+	};
 }
 
 start
@@ -47,7 +47,7 @@ start
 
 reset
 {
-		return current.tick == 0;
+	return current.tick == 0;
 }
 
 

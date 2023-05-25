@@ -27,11 +27,11 @@ startup
 		{"staff_4", "Staff 4 crafted"},
 		{"ee_all_staffs_placed", "Ascend from darkness (Staffs placed in robots)"},
 		{"ee_mech_zombie_hole_opened", "Rain fire (Seal broken)"},
-		{"end_game", "Freedom (Game ended)"},
-	 };
+		{"end_game", "Freedom (Game ended)"}
+	};
 
 	foreach(var Split in vars.split_names)
-		settings.Add(Split.Key, false, Split.Value, "splits");
+		settings.Add(Split.Key, true, Split.Value, "splits");
 
 	vars.split_index = new Dictionary<int,string>
 	{
@@ -44,7 +44,7 @@ startup
 		{7, "ee_all_staffs_placed"},
 		{8, "ee_mech_zombie_hole_opened"},
 		{9, "end_game"}
-	 };
+	};
 }
 
 start
@@ -59,7 +59,7 @@ start
 
 reset
 {
-		return current.tick == 0;
+	return current.tick == 0;
 }
 
 

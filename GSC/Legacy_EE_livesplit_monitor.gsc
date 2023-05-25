@@ -29,7 +29,6 @@ on_player_connect()
         if(level.script == "zm_transit") self thread persistent_upgrades_bank();
     }
 
-    self waittill( "spawned_player" );
     player show_spawn_message();
 }
 
@@ -41,7 +40,7 @@ split_monitor()
     }
     else if(level.script == "zm_tomb")
     {
-        splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|end_game", "|");
+        splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|ee_mech_zombie_hole_opened|end_game", "|");
     }
     else if(level.script == "zm_transit")
     {
@@ -53,7 +52,7 @@ split_monitor()
 
     while(level.leem_split_num < splits.size)
     {
-        level.last_split_time = check_split(splits[level.leem_split_num], is_flag(splits[level.leem_split_num]));
+        check_split(splits[level.leem_split_num], is_flag(splits[level.leem_split_num]));
         level.leem_split_num++;
         setdvar(level.leem_split_dvar, level.leem_split_num);
     }
@@ -117,8 +116,6 @@ check_split(split, is_flag)
                 break;
         }
     }
-
-    return gettime();
 }
 
 is_flag(split_name)
@@ -151,7 +148,7 @@ is_flag(split_name)
 
 show_spawn_message()
 {
-    self iprintln("^1Legacy ^6Livesplit Monitor ^5" + level.leem_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters");
+    self iprintln("^1Legacy ^8| ^6Livesplit Monitor ^5" + level.leem_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters");
 }
 
 upgrade_dvars()

@@ -9,7 +9,7 @@ state("t6zmv41", "Redacted")
 //Plutonium
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
-	int tick:     0x002AA13C, 0x14;	//Tick counter		
+	int tick:     0x002AA13C, 0x14;	//Tick counter
 	int gametime: 0x0262B300;		//Game time (ms)
 	int splitval: 0x0262B2A0;		//Split value
 }
@@ -19,8 +19,8 @@ startup
 	refreshRate = 200;
 	vars.startvalue = 116;
 	settings.Add("splits", true, "Splits");
-	
-	vars.split_names = new Dictionary<string,string> 
+
+	vars.split_names = new Dictionary<string,string>
 	{
 		{"no_mans_land", "No mans land open"},
 		{"soul_chests", "All chest filled"},
@@ -29,13 +29,14 @@ startup
 		{"staff_3", "Staff 3 crafted"},
 		{"staff_4", "Staff 4 crafted"},
 		{"ee_all_staffs_placed", "Ascend from darkness (Staffs placed in robots)"},
-		{"end_game", "Freedom (Game ended)"},
+		{"ee_mech_zombie_hole_opened", "Rain fire (Seal broken)"},
+		{"end_game", "Freedom (Game ended)"}
 	 };
-	 
+
 	foreach(var Split in vars.split_names)
 		settings.Add(Split.Key, true, Split.Value, "splits");
-	 
-	vars.split_index = new Dictionary<int,string> 
+
+	vars.split_index = new Dictionary<int,string>
 	{
 		{1, "no_mans_land"},
 		{2, "soul_chests"},
@@ -44,7 +45,8 @@ startup
 		{5, "staff_3"},
 		{6, "staff_4"},
 		{7, "ee_all_staffs_placed"},
-		{8, "end_game"},
+		{8, "ee_mech_zombie_hole_opened"},
+		{9, "end_game"}
 	 };
 }
 
@@ -54,12 +56,12 @@ start
 	{
 		vars.split = 0;
 		return true;
-	} 
+	}
 }
 
 reset
 {
-	return current.tick == 0;	
+	return current.tick == 0;
 }
 
 
@@ -81,8 +83,8 @@ isLoading
 		{
 			vars.pauseticks++;
 			return false;
-		}		
-	}	
+		}
+	}
 	else
 	{
 		vars.pauseticks = 0;
@@ -97,6 +99,6 @@ split
 	{
 		vars.split++;
 		if(settings[vars.split_index[vars.split]])
-			return true;		
+			return true;
 	}
 }

@@ -9,7 +9,7 @@ state("t6zmv41", "Redacted")
 //Plutonium
 state("plutonium-bootstrapper-win32", "Plutonium")
 {
-	int tick:     0x002AA13C, 0x14;	//Tick counter		
+	int tick:     0x002AA13C, 0x14;	//Tick counter
 	int gametime: 0x0262B300;		//Game time (ms)
 	int splitval: 0x0262B2A0;		//Split value
 }
@@ -19,8 +19,8 @@ startup
 	refreshRate = 200;
 	vars.startvalue = 116;
 	settings.Add("splits", true, "Splits");
-	
-	vars.split_names = new Dictionary<string,string> 
+
+	vars.split_names = new Dictionary<string,string>
 	{
 		{"dryer_cycle_active", "Dryer started"},
 		{"gondola_1", "1st gondola ride"},
@@ -28,15 +28,15 @@ startup
 		{"gondola_2", "2nd gondola ride"},
 		{"fly_2", "2nd Flight"},
 		{"gondola_3", "3rd gondola ride"},
-		{"fly_3", "3rd Flight"},	
+		{"fly_3", "3rd Flight"},
 		{"nixie_code", "Prisoner codes entered"},
-		{"audio_tour_finished", "Last audio log deleted"},
+		{"audio_tour_finished", "Last audio log deleted"}
 	};
-	 
+
 	foreach(var Split in vars.split_names)
 		settings.Add(Split.Key, true, Split.Value, "splits");
-	 
-	vars.split_index = new Dictionary<int,string> 
+
+	vars.split_index = new Dictionary<int,string>
 	{
 		{1, "dryer_cycle_active"},
 		{2, "gondola_1"},
@@ -46,7 +46,7 @@ startup
 		{6, "gondola_3"},
 		{7, "fly_3"},
 		{8, "nixie_code"},
-		{9, "audio_tour_finished"},
+		{9, "audio_tour_finished"}
 	};
 }
 
@@ -56,12 +56,12 @@ start
 	{
 		vars.split = 0;
 		return true;
-	} 
+	}
 }
 
 reset
 {
-	return current.tick == 0;	
+	return current.tick == 0;
 }
 
 
@@ -83,8 +83,8 @@ isLoading
 		{
 			vars.pauseticks++;
 			return false;
-		}		
-	}	
+		}
+	}
 	else
 	{
 		vars.pauseticks = 0;
@@ -99,6 +99,6 @@ split
 	{
 		vars.split++;
 		if(settings[vars.split_index[vars.split]])
-			return true;		
+			return true;
 	}
 }
