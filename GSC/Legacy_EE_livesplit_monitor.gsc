@@ -9,7 +9,7 @@ init()
 {
     if(level.scr_zm_ui_gametype_group != "zclassic") return;
 
-    level.leem_version = "V1.0 LEGACY";
+    level.leem_version = "V2.2";
     level.leem_start_value = 935;
     level.leem_split_dvar = "sv_maxPing";
     level.leem_split_num = 0;
@@ -148,7 +148,7 @@ is_flag(split_name)
 
 show_spawn_message()
 {
-    self iprintln("^6Livesplit Monitor ^5" + level.leem_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters");
+    self iprintln("^1Legacy ^8| ^6Livesplit Monitor ^5" + level.leem_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters");
 }
 
 upgrade_dvars()
