@@ -1,10 +1,8 @@
-Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Compatible with Redacted and [Plutonium](https://plutonium.pw).
+Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Compatible with Redacted and Plutonium.
 
-[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.1/timer_scripts_only_2.1.zip)] - Scripts only  
-[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.1/timer_scripts_and_livesplit_files_2.1.zip)] - Scripts & livesplit files  
+## Video Guide
 
-[[Youtube](https://youtu.be/E85iosd-4-8)] - video guide  
-
+https://youtu.be/E85iosd-4-8 
 
 ## Setup
 1. Download LiveSplit [livesplit.org/downloads](https://livesplit.org/downloads/)
@@ -12,7 +10,7 @@ Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically
 2. Place EE_livesplit_monitor in ```C:\Users\%username%\AppData\Local\Plutonium\storage\t6\scripts\zm```  
    If using your own LiveSplit file and layout skip step 3.   
    
-3. Open the `.lss` file of the map you wish to configure. Right click LiveSplit and choose `Edit Splits...` Check the use layout box and select the maps `.lsl` file. Hit OK to save the change.
+3. Download and open the `.lss` file of the map you wish to configure. Right click LiveSplit and choose `Edit Splits...` Check the use layout box and select the maps `.lsl` file. Hit OK to save the change.
 
    ![Layout](https://i.imgur.com/fywHDRt.png "Layout")
   
@@ -21,6 +19,31 @@ Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically
    ![Layout](https://i.imgur.com/aOkBIdd.png "ASL")
 
 5. You can now start running! Make sure to open LiveSplit before starting game.
+
+## Downloads
+
+### Livesplit splits/layout files
+|   |   |
+| --- | --- |
+| Tranzit | [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip)] |
+| MotD  | [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/motd_livesplit_files.zip)] |
+| Origins  | [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/origins_livesplit_files.zip)] |
+
+### V2.2 Scripts
+|   |   |
+| --- | --- |
+| ALL | GSC [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/EE_livesplit_monitor_2.2.gsc)] |
+| Tranzit | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/Tranzit_EE_autosplitter_2.2.asl)] |
+| MotD  | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/MotD_EE_autosplitter_2.2.asl)] |
+| Origins | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/Origins_EE_autosplitter_2.2.asl)] |
+
+### Legacy V1.0 Scripts
+|   |   |
+| --- | --- |
+| ALL | GSC [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_EE_livesplit_monitor_1.0.gsc)] |
+| Tranzit | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Tranzit_EE_autosplitter_1.0.asl)] |
+| MotD  | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_MotD_EE_autosplitter_1.0.asl)] |
+| Origins  | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Origins_EE_autosplitter_1.0.asl)] |
 
 ## Persistent Upgrades & Bank
 When playing tranzit. Upon spawning, players will be awarded all persistent upgrades except insta kill. Player bank will also be set to maximum amount. To change what upgrades are active, use to following boolean console dvars to enable/disable upgrades and bank fill.
