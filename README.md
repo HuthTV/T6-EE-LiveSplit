@@ -2,7 +2,7 @@ Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically
 
 ## Video Guide
 
-https://youtu.be/E85iosd-4-8 
+https://youtu.be/xQsdHSso_To
 
 ## Setup
 1. Download LiveSplit [livesplit.org/downloads](https://livesplit.org/downloads/)
