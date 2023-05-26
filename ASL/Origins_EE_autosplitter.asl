@@ -17,7 +17,7 @@ state("plutonium-bootstrapper-win32", "Plutonium")
 startup
 {
 	refreshRate = 200;
-	vars.startvalue = 116;
+	vars.startvalue = 117;
 	settings.Add("splits", true, "Splits");
 
 	vars.split_names = new Dictionary<string,string>
