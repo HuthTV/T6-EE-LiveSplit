@@ -61,7 +61,7 @@ livesplit_updater()
             setdvar(level.eem_time_dvar, level.last_split_time - level.level_start_time);
             split = level.eem_split_num;
             wait_network_frame();
-            setdvar(level.eem_split_dvar, level.eem_start_value);
+            setdvar(level.eem_split_dvar, split);
             wait_network_frame();
         }
         else
