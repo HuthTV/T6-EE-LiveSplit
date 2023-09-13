@@ -2,7 +2,7 @@ Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically
 
 ## Video Guide
 
-https://youtu.be/E85iosd-4-8 
+https://youtu.be/xQsdHSso_To
 
 ## Setup
 1. Download LiveSplit [livesplit.org/downloads](https://livesplit.org/downloads/)
@@ -25,25 +25,25 @@ https://youtu.be/E85iosd-4-8
 ### Livesplit splits/layout files
 |   |   |
 | --- | --- |
-| Tranzit | [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip)] |
-| MotD  | [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/motd_livesplit_files.zip)] |
-| Origins  | [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/origins_livesplit_files.zip)] |
+| Tranzit | [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip)] |
+| MotD  | [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/motd_livesplit_files.zip)] |
+| Origins  | [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/origins_livesplit_files.zip)] |
 
 ### V2.2 Scripts
 |   |   |
 | --- | --- |
-| ALL | GSC [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/EE_livesplit_monitor_2.2.gsc)] |
-| Tranzit | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/Tranzit_EE_autosplitter_2.2.asl)] |
-| MotD  | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/MotD_EE_autosplitter_2.2.asl)] |
-| Origins | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/Origins_EE_autosplitter_2.2.asl)] |
+| ALL | GSC [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/EE_livesplit_monitor_2.2.gsc)] |
+| Tranzit | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/Tranzit_EE_autosplitter_2.2.asl)] |
+| MotD  | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/MotD_EE_autosplitter_2.2.asl)] |
+| Origins | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/Origins_EE_autosplitter_2.2.asl)] |
 
 ### Legacy V1.0 Scripts
 |   |   |
 | --- | --- |
-| ALL | GSC [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_EE_livesplit_monitor_1.0.gsc)] |
-| Tranzit | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Tranzit_EE_autosplitter_1.0.asl)] |
-| MotD  | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_MotD_EE_autosplitter_1.0.asl)] |
-| Origins  | ASL [[downoad](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Origins_EE_autosplitter_1.0.asl)] |
+| ALL | GSC [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_EE_livesplit_monitor_1.0.gsc)] |
+| Tranzit | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Tranzit_EE_autosplitter_1.0.asl)] |
+| MotD  | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_MotD_EE_autosplitter_1.0.asl)] |
+| Origins  | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Origins_EE_autosplitter_1.0.asl)] |
 
 ## Persistent Upgrades & Bank
 When playing tranzit. Upon spawning, players will be awarded all persistent upgrades except insta kill. Player bank will also be set to maximum amount. To change what upgrades are active, use to following boolean console dvars to enable/disable upgrades and bank fill.
