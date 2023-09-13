@@ -15,18 +15,14 @@ init()
     level.eem_time_dvar = "league_teamLeagueInfoRefetchTime";   //communicate gametime
     level.eem_split_num = 0;
 
-    print("init");
-
     setdvar(level.eem_split_dvar, 0);
     if(level.script == "zm_transit") level thread upgrade_dvars();
     level thread on_player_connect();
 
-    print("init end");
 }
 
 on_player_connect()
 {
-    print("player");
     level endon( "game_ended" );
     level waittill( "connected", player );
     if(level.is_forever_solo_game)
