@@ -1,25 +1,32 @@
-//Redacted
-state("t6zmv41", "Redacted")
+state("plutonium-bootstrapper-win32", "r3904")
 {
-	int tick:     0x002AA13C, 0x14;		//Tick counter
-	int gametime: 0x0262B300;		//Game time (ms)
-	int splitval: 0x0262B2A0;		//Split value
+	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
+	float gametime:	0x026111A0;		//con_gameMsgWindow0SplitscreenScale
+	float splitval:	0x026113E0;		//con_gameMsgWindow1SplitscreenScale
 }
 
-//Plutonium
-state("plutonium-bootstrapper-win32", "Plutonium")
+state("plutonium-bootstrapper-win32", "r2905")
 {
-	int tick:     0x002AA13C, 0x14;	//Tick counter
-	int gametime: 0x0262B300;		//Game time (ms)
-	int splitval: 0x0262B2A0;		//Split value
+	int tick:	0x002AA13C, 0x14;	//game ticks 20hz
+	float gametime:	0x02612580;		//con_gameMsgWindow0SplitscreenScale
+	float splitval:	0x026127C0;		//con_gameMsgWindow1SplitscreenScale
+}
+
+
+state("plutonium-bootstrapper-win32", "?")
+{
+	//No game version
 }
 
 startup
 {
 	refreshRate = 200;
-	vars.startvalue = 117;
-	settings.Add("splits", true, "Splits");
+	vars.startvalue = 118;
+	vars.endvalue = 500;
+	vars.paused = 0;
+	vars.timerModel = new TimerModel { CurrentState = timer };
 
+	settings.Add("splits", true, "Splits");
 	vars.split_names = new Dictionary<string,string>
 	{
 		{"dryer_cycle_active", "Dryer started"},
@@ -50,46 +57,47 @@ startup
 	};
 }
 
-start
+init
 {
-	if( current.splitval == vars.startvalue && current.tick > 0)
-	{
-		vars.split = 0;
-		return true;
+	vars.memsize = modules.First().ModuleMemorySize;
+	switch(modules.First().ModuleMemorySize) {
+		case 560967680: version = "r2905"; break;
+		case 335872000: version = "r3904"; break;
+		default: 		version = "?"; break;
 	}
 }
 
-reset
+update
 {
-	return current.tick == 0;
+	if(current.splitval == vars.endvalue && vars.paused == 0)
+	{
+		vars.paused = 1;
+		vars.timerModel.Pause();
+	}
 }
-
 
 gameTime
 {
-	return TimeSpan.FromMilliseconds( current.gametime );
+	if(current.tick > 0)
+		return TimeSpan.FromMilliseconds( current.gametime );
 }
 
 isLoading
 {
-	if(current.tick == old.tick)
+	return true;
+}
+
+start
+{
+	if(current.splitval == vars.startvalue && current.tick > 0)
 	{
-		if(vars.pauseticks > refreshRate/60 )
+		vars.split = 0;
+		if(vars.paused == 1);
 		{
-			timer.CurrentPhase = TimerPhase.Paused;
-			return true;
+			vars.timerModel.Pause();
+			vars.paused = 0;
 		}
-		else
-		{
-			vars.pauseticks++;
-			return false;
-		}
-	}
-	else
-	{
-		vars.pauseticks = 0;
-		timer.CurrentPhase = TimerPhase.Running;
-		return false;
+		return true;
 	}
 }
 
@@ -100,5 +108,19 @@ split
 		vars.split++;
 		if(settings[vars.split_index[vars.split]])
 			return true;
+	}
+}
+
+reset
+{
+	return current.tick > 0 && current.tick < 10;
+}
+
+exit
+{
+	if(vars.paused == 0)
+	{
+		vars.paused = 1;
+		vars.timerModel.Pause();
 	}
 }
