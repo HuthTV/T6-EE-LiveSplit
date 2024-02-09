@@ -9,13 +9,19 @@ init()
 {
     if(level.scr_zm_ui_gametype_group != "zclassic") return;
 
-    level.eem_version = "V2.2";
-    level.eem_start_value = 117;
-    level.eem_split_dvar = "league_leaderboardRefetchTime";     //communicate split progress
-    level.eem_time_dvar = "league_teamLeagueInfoRefetchTime";   //communicate gametime
+    if(getdvar("scr_kill_infinite_loops") == "") //Pre r3755
+    {
+
+    }
+
+    level.eem_split_dvar = "con_gameMsgWindow1SplitscreenScale";    //communicate split progress
+    level.eem_time_dvar = "con_gameMsgWindow0SplitscreenScale";     //communicate gametime
+    level.eem_version = "V3.0";
+    level.eem_start_value = 118;
+    level.eem_end_value = 500;
     level.eem_split_num = 0;
 
-    setdvar(level.eem_split_dvar, 0);
+    setdvar(level.eem_split_dvar, level.eem_split_num);
     if(level.script == "zm_transit") level thread upgrade_dvars();
     level thread on_player_connect();
 
@@ -27,42 +33,41 @@ on_player_connect()
     level waittill( "connected", player );
     if(level.is_forever_solo_game)
     {
+        level thread game_start_wait();
+        level thread game_over_wait();
         level thread start_monitor();
-        level thread livesplit_updater();
         level thread split_monitor();
+        level thread gametime_monitor();
         if(level.script == "zm_transit") self thread persistent_upgrades_bank();
     }
 
-    player show_spawn_message();
+    player show_start_message();
 }
 
 start_monitor()
 {
     setdvar(level.eem_time_dvar, 0);
-    flag_wait("initial_blackscreen_passed");
-    level.level_start_time = getTime();
-    setdvar(level.eem_split_dvar, level.eem_start_value);
+    flag_wait("timer_start");
+    setdvar(level.eem_split_dvar, level.eem_start_value + level.eem_split_num); //No start if split_num is set by end value
 }
 
-livesplit_updater()
+gametime_monitor()
 {
-    split = 0;
-    flag_wait("initial_blackscreen_passed");
+    splits = 0;
+    flag_wait("timer_start");
+    level.eem_level_start_time = getTime();
     wait_network_frame();
 
-    while(true)
+    while(level.eem_split_num < level.splits.size)
     {
-        if(level.eem_split_num > split && level.eem_split_num < level.eem_start_value)
+        if(splits < level.eem_split_num)
         {
-            setdvar(level.eem_time_dvar, level.last_split_time - level.level_start_time);
-            split = level.eem_split_num;
-            wait_network_frame();
-            setdvar(level.eem_split_dvar, split);
+            splits++;
             wait_network_frame();
         }
         else
         {
-            setdvar(level.eem_time_dvar, (gettime() - level.level_start_time));
+            setdvar(level.eem_time_dvar, (gettime() - level.eem_level_start_time));
         }
         wait 0.05;
     }
@@ -72,25 +77,27 @@ split_monitor()
 {
     if(level.script == "zm_prison")
     {
-        splits = strtok("dryer_cycle_active|gondola_in_motion1|plane_boarded|gondola_in_motion|plane_boarded|gondola_in_motion|plane_boarded|nixie_code|last_audio_log", "|");
+        level.splits = strtok("dryer_cycle_active|gondola_in_motion1|plane_boarded|gondola_in_motion|plane_boarded|gondola_in_motion|plane_boarded|nixie_code|last_audio_log", "|");
     }
     else if(level.script == "zm_tomb")
     {
-        splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|ee_mech_zombie_hole_opened|end_game", "|");
+        level.splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|ee_mech_zombie_hole_opened|end_game", "|");
     }
     else if(level.script == "zm_transit")
     {
-        splits = strtok("jetgun|tower|end", "|");
+        level.splits = strtok("jetgun|tower|end", "|");
     }
 
-    flag_wait("initial_blackscreen_passed");
+    flag_wait("timer_start");
     wait_network_frame();
     setdvar(level.eem_split_dvar, 0);
 
-    while(level.eem_split_num < splits.size)
+    while(level.eem_split_num < level.splits.size)
     {
-        level.last_split_time = check_split(splits[level.eem_split_num], is_flag(splits[level.eem_split_num]));
+        level.last_split_time = check_split(level.splits[level.eem_split_num], is_flag(level.splits[level.eem_split_num]));
         level.eem_split_num++;
+        setdvar(level.eem_time_dvar, level.last_split_time - level.eem_level_start_time);
+        setdvar(level.eem_split_dvar, level.eem_split_num);
     }
 }
 
@@ -106,7 +113,7 @@ check_split(split, is_flag)
         {
             //mob nonflags
             case "gondola_in_motion1":
-                flag_wait("fueltanks_found");
+                flag_wait("gondola_at_docks");
                 flag_wait("gondola_in_motion");
                 break;
 
@@ -184,9 +191,48 @@ is_flag(split_name)
     }
 }
 
-show_spawn_message()
+game_start_wait()
 {
-    self iprintln("^6Livesplit Monitor ^5" + level.eem_version + " ^8| ^3github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters");
+    level endon( "game_ended" );
+    flag_init("timer_start");
+    flag_clear("timer_start");
+    if(level.script == "zm_prison") level thread mob_start_wait();
+
+    flag_wait( "initial_blackscreen_passed" );
+    flag_set("timer_start");
+}
+
+
+mob_start_wait()
+{
+    level endon( "game_ended" );
+    players = getplayers();
+
+    while(!flag("timer_start"))
+    {
+        foreach(ghost in players)
+        {
+            if(isdefined(ghost.e_afterlife_corpse))
+            {
+                wait 1.5;
+                flag_set("timer_start");
+            }
+        }
+        wait 0.05;
+    }
+}
+
+game_over_wait()
+{
+    level waittill( "end_game" );
+    wait_network_frame();
+    level.eem_split_num = level.eem_end_value;
+    setdvar(level.eem_split_dvar, level.eem_end_value);
+}
+
+show_start_message()
+{
+    self iprintln("^3Livesplit Monitor ^8| ^5" + level.eem_version + " ^8| ^7github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters");
 }
 
 upgrade_dvars()
