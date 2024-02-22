@@ -1,4 +1,4 @@
-Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Compatible with Redacted and Plutonium.
+Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Tested and functional for Plutonium [R2905](https://www.youtube.com/watch?v=_8QjvejOuqU&t=176s) & [R3904](https://www.youtube.com/watch?v=_8QjvejOuqU&t=71s) (modern).
 
 ## Video Guide
 
@@ -22,28 +22,22 @@ https://youtu.be/xQsdHSso_To
 
 ## Downloads
 
-### Livesplit splits/layout files
-|   |   |
-| --- | --- |
-| Tranzit | [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip)] |
-| MotD  | [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/motd_livesplit_files.zip)] |
-| Origins  | [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/origins_livesplit_files.zip)] |
+### V3.0 Scripts
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V3.0/EE_livesplit_monitor_3.0.gsc)] GSC split monitor (required for all maps)  
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V3.0/Tranzit_EE_autosplitter_3.0.asl)] Tranzit ASL script  
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V3.0/MotD_EE_autosplitter_3.0.asl)] MotD ASL script  
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V3.0/Origins_EE_autosplitter_3.0.asl)] Origins ASL script  
 
-### V2.2 Scripts
-|   |   |
-| --- | --- |
-| ALL | GSC [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/EE_livesplit_monitor_2.2.gsc)] |
-| Tranzit | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/Tranzit_EE_autosplitter_2.2.asl)] |
-| MotD  | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/MotD_EE_autosplitter_2.2.asl)] |
-| Origins | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/V2.2/Origins_EE_autosplitter_2.2.asl)] |
+### Livesplit splits/layout files (optional, can make your own)
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip)]  Tranzit  
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/motd_livesplit_files.zip)]  MotD  
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/origins_livesplit_files.zip)] Origins  
 
-### Legacy V1.0 Scripts
-|   |   |
-| --- | --- |
-| ALL | GSC [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_EE_livesplit_monitor_1.0.gsc)] |
-| Tranzit | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Tranzit_EE_autosplitter_1.0.asl)] |
-| MotD  | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_MotD_EE_autosplitter_1.0.asl)] |
-| Origins  | ASL [[download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Origins_EE_autosplitter_1.0.asl)] |
+### Legacy V1.0 Scripts (only use if V3.0 is not working)
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_EE_livesplit_monitor_1.0.gsc)] GSC split monitor  
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Tranzit_EE_autosplitter_1.0.asl)] Tranzit ASL script  
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_MotD_EE_autosplitter_1.0.asl)] MotD ASL script  
+[[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Origins_EE_autosplitter_1.0.asl)] Origins ASL script  
 
 ## Persistent Upgrades & Bank
 When playing tranzit. Upon spawning, players will be awarded all persistent upgrades except insta kill. Player bank will also be set to maximum amount. To change what upgrades are active, use to following boolean console dvars to enable/disable upgrades and bank fill.
