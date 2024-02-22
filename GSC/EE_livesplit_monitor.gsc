@@ -37,7 +37,7 @@ on_player_connect()
         if(level.script == "zm_transit")
         {
             level thread upgrade_dvars();
-            self thread persistent_upgrades_bank();
+            player thread persistent_upgrades_bank();
         }
         level thread game_start_wait();
         level thread game_over_wait();
