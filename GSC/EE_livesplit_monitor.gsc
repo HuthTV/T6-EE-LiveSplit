@@ -5,43 +5,48 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm;
 
+main()
+{
+	replaceFunc(maps\mp\animscripts\zm_utility::wait_network_frame, ::wait_network_frame_fix);
+	replaceFunc(maps\mp\zombies\_zm_utility::wait_network_frame, ::wait_network_frame_fix);
+}
+
 init()
 {
-    if(level.scr_zm_ui_gametype_group != "zclassic") return;
-
-    if(getdvar("scr_kill_infinite_loops") == "") //Pre r3755
-    {
-
-    }
-
-    level.eem_split_dvar = "con_gameMsgWindow1SplitscreenScale";    //communicate split progress
-    level.eem_time_dvar = "con_gameMsgWindow0SplitscreenScale";     //communicate gametime
-    level.eem_version = "V3.0";
-    level.eem_start_value = 118;
+    level.eem_version = "V3.1";
+    level.eem_start_value = 119;
     level.eem_end_value = 500;
     level.eem_split_num = 0;
-
+    level.eem_split_dvar = "con_gameMsgWindow1SplitscreenScale";    //communicate split progress
+    level.eem_time_dvar = "con_gameMsgWindow0SplitscreenScale";     //communicate gametime
     setdvar(level.eem_split_dvar, level.eem_split_num);
-    if(level.script == "zm_transit") level thread upgrade_dvars();
-    level thread on_player_connect();
 
+    if(level.scr_zm_ui_gametype_group != "zclassic") return;
+
+    level thread on_player_connect();
+    //if(getdvar("scr_kill_infinite_loops") == "") {} Pre r3755
 }
 
 on_player_connect()
 {
     level endon( "game_ended" );
     level waittill( "connected", player );
+
     if(level.is_forever_solo_game)
     {
+        if(level.script == "zm_transit")
+        {
+            level thread upgrade_dvars();
+            self thread persistent_upgrades_bank();
+        }
         level thread game_start_wait();
         level thread game_over_wait();
         level thread start_monitor();
         level thread split_monitor();
         level thread gametime_monitor();
-        if(level.script == "zm_transit") self thread persistent_upgrades_bank();
+        player thread network_frame_print();
+        player thread show_start_message();
     }
-
-    player show_start_message();
 }
 
 start_monitor()
@@ -232,7 +237,9 @@ game_over_wait()
 
 show_start_message()
 {
-    self iprintln("^3Livesplit Monitor ^8| ^5" + level.eem_version + " ^8| ^7github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters");
+    flag_wait( "initial_players_connected" );
+    wait 0.15;
+    self iprintln("^8[^3EE Livesplit Monitor^8][^5" + level.eem_version + "^8]^7 github.com/HuthTV/T6-EE-LiveSplit");
 }
 
 upgrade_dvars()
@@ -272,4 +279,42 @@ persistent_upgrades_bank()
 create_bool_dvar( dvar, start_val )
 {
     if( getdvar( dvar ) == "" ) setdvar( dvar, start_val);
+}
+
+wait_network_frame_fix()
+{
+    if (level.players.size == 1)
+        wait 0.1;
+    else if (numremoteclients())
+    {
+        snapshot_ids = getsnapshotindexarray();
+
+        for (acked = undefined; !isdefined(acked); acked = snapshotacknowledged(snapshot_ids))
+            level waittill("snapacknowledged");
+    }
+    else
+        wait 0.1;
+}
+
+network_frame_print()
+{
+    flag_wait( "initial_players_connected" );
+    if(!isdefined(level.network_frame_checked))
+    {
+        level.network_frame_checked = true;
+
+        start = gettime();
+        wait_network_frame();
+        delay = gettime() - start;
+
+        msgstring = "^8[^6Network Frame -Fix^8] ^7" + delay + "ms ";
+
+        if( (level.players.size == 1 && delay == 100) || (level.players.size < 1 && delay == 50) )
+            msgstring += "^2good";
+        else
+            msgstring += "^1bad";
+
+        Print(msgstring);
+        IPrintLn(msgstring);
+    }
 }
