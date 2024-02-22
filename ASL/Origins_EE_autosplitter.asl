@@ -21,7 +21,7 @@ state("plutonium-bootstrapper-win32", "?")
 startup
 {
 	refreshRate = 200;
-	vars.startvalue = 118;
+	vars.startvalue = 119;
 	vars.endvalue = 500;
 	vars.paused = 0;
 	vars.timerModel = new TimerModel { CurrentState = timer };
