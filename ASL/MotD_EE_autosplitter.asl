@@ -1,3 +1,10 @@
+state("plutonium-bootstrapper-win32", "r3963")
+{
+	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
+	float gametime:	0x026111A0;		//con_gameMsgWindow0SplitscreenScale
+	float splitval:	0x026113E0;		//con_gameMsgWindow1SplitscreenScale
+}
+
 state("plutonium-bootstrapper-win32", "r3904")
 {
 	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
@@ -12,9 +19,9 @@ state("plutonium-bootstrapper-win32", "r2905")
 	float splitval:	0x026127C0;		//con_gameMsgWindow1SplitscreenScale
 }
 
-
-state("plutonium-bootstrapper-win32", "?")
+state("plutonium-bootstrapper-win32", "other")
 {
+	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
 	//No game version
 }
 
@@ -63,7 +70,8 @@ init
 	switch(modules.First().ModuleMemorySize) {
 		case 560967680: version = "r2905"; break;
 		case 335872000: version = "r3904"; break;
-		default: 		version = "?"; break;
+		case 338178048: version = "r3963"; break;
+		default: version = "other"; break;
 	}
 }
 
