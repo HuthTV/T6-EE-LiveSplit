@@ -1,4 +1,5 @@
-Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Tested and functional for Plutonium [R2905](https://www.youtube.com/watch?v=_8QjvejOuqU&t=176s) & [R3904](https://www.youtube.com/watch?v=_8QjvejOuqU&t=71s) (modern).
+Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Tested and functional for following Plutonium versions:  
+`R2905` `R3904` `R3963`  
 
 ## Video Guide
 
@@ -24,9 +25,9 @@ https://youtu.be/xQsdHSso_To
 
 ### V3.1 Scripts
 [[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1/EE_livesplit_monitor_3.1.gsc)] GSC split monitor (required for all maps)  
-[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1/Tranzit_EE_autosplitter_3.1.asl)] Tranzit ASL script  
-[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1/MotD_EE_autosplitter_3.1.asl)] MotD ASL script  
-[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1/Origins_EE_autosplitter_3.1.asl)] Origins ASL script  
+[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.1/Tranzit_EE_autosplitter_3.1.1.asl)] Tranzit ASL script  
+[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.1/MotD_EE_autosplitter_3.1.1.asl)] MotD ASL script  
+[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.1/Origins_EE_autosplitter_3.1.1.asl)] Origins ASL script  
 
 ### Livesplit splits/layout files (optional, can make your own)
 [[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip)]  Tranzit  
