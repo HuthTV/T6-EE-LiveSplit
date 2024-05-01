@@ -1,4 +1,5 @@
-Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Tested and functional for Plutonium [R2905](https://www.youtube.com/watch?v=_8QjvejOuqU&t=176s) & [R3904](https://www.youtube.com/watch?v=_8QjvejOuqU&t=71s) (modern).
+Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Tested and functional for following Plutonium versions:  
+`R2905` `R3904` `R3963`  
 
 ## Video Guide
 
@@ -24,9 +25,9 @@ https://youtu.be/xQsdHSso_To
 
 ### V3.1 Scripts
 [[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1/EE_livesplit_monitor_3.1.gsc)] GSC split monitor (required for all maps)  
-[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1/Tranzit_EE_autosplitter_3.1.asl)] Tranzit ASL script  
-[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1/MotD_EE_autosplitter_3.1.asl)] MotD ASL script  
-[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1/Origins_EE_autosplitter_3.1.asl)] Origins ASL script  
+[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.1/Tranzit_EE_autosplitter_3.1.1.asl)] Tranzit ASL script  
+[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.1/MotD_EE_autosplitter_3.1.1.asl)] MotD ASL script  
+[[Download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.1/Origins_EE_autosplitter_3.1.1.asl)] Origins ASL script  
 
 ### Livesplit splits/layout files (optional, can make your own)
 [[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip)]  Tranzit  
@@ -40,7 +41,7 @@ https://youtu.be/xQsdHSso_To
 [[Download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Origins_EE_autosplitter_1.0.asl)] Origins ASL script  
 
 ## Network Frame Fix
-In certain older versions of Putonium (such as R2509), there exists an issue with the `wait_network_frame()` function, speeding up certain in-game events, most notably the spawnrate of zombies. This timer incorporates a fix for this particular issue, ensuring that gameplay on older Putonium versions remains legitimate.
+In certain older versions of Plutonium (such as R2905), there exists an issue with the `wait_network_frame()` function, speeding up certain in-game events, most notably the spawnrate of zombies. This timer incorporates a fix for this particular issue, ensuring that gameplay on older Plutonium versions remains legitimate.
 
 ## Persistent Upgrades & Bank
 When playing tranzit. Upon spawning, players will be awarded all persistent upgrades except insta kill. Player bank will also be set to maximum amount. To change what upgrades are active, use to following boolean console dvars to enable/disable upgrades and bank fill.
