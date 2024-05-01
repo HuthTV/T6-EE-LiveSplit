@@ -1,3 +1,10 @@
+state("plutonium-bootstrapper-win32", "r4035")
+{
+	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
+	float gametime:	0x02611260;		//con_gameMsgWindow0SplitscreenScale
+	float splitval:	0x026114A0;		//con_gameMsgWindow1SplitscreenScale
+}
+
 state("plutonium-bootstrapper-win32", "r3963")
 {
 	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
@@ -71,6 +78,7 @@ init
 		case 560967680: version = "r2905"; break;
 		case 335872000: version = "r3904"; break;
 		case 338178048: version = "r3963"; break;
+		case 340664320: version = "r4035"; break;
 		default: version = "other"; break;
 	}
 }
