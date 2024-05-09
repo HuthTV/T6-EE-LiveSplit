@@ -1,5 +1,5 @@
 Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Tested and functional for following Plutonium versions:  
-`R2905` `R3904` `R3963` `R4035`  
+`R2905` `R3904 - R4043`
 
 ## Video Guide
 
@@ -28,17 +28,17 @@ https://youtu.be/xQsdHSso_To
       y = minor change  
       z = asl change  
       
-Typically T6 Pluto updates tend to break the ASL file, prompting the release of a updated ASL version. The GSC script remains unchanged but retains compatibility. For instance, the 3.1 GSC script functions with 3.1.2 ASL.  
+Typically T6 Pluto updates tend to break the ASL file, prompting the release of a updated ASL version. The GSC script remains unchanged but retains compatibility. For instance, the 3.1 GSC script functions with 3.1.3 ASL.  
 
 The legacy scripts are older versions with inaccurate timing but superior compatibility. It is no longer maintained an will not recive any updates. These scripts are not recommended to be used, however.  If the current main release is not functioning properly, the legacy scripts can be temporarily utilized until the next update.
 
 ## Downloads
 
 GSC Split Monitor V3.1 (required for all maps)  
-[[download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.2/EE_livesplit_monitor_3.1.gsc)]  
+[[download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.3/EE_livesplit_monitor_3.1.gsc)]  
 
-ASL Script V3.1.2  
-[[Tranzit](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.2/Tranzit_EE_autosplitter_3.1.2.asl)]  [[MotD](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.2/MotD_EE_autosplitter_3.1.2.asl)] [[Origins](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.2/Origins_EE_autosplitter_3.1.2.asl)]  
+ASL Script V3.1.3  
+[[Tranzit](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.3/Tranzit_EE_autosplitter_3.1.3.asl)]  [[MotD](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.3/MotD_EE_autosplitter_3.1.3.asl)] [[Origins](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.3/Origins_EE_autosplitter_3.1.3.asl)]  
 
 Livesplit Splits (lss) & Layout Files (lsl)  
 [[Tranzit](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip)]  [[MotD](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/motd_livesplit_files.zip)]  [[Origins](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/origins_livesplit_files.zip)]  
