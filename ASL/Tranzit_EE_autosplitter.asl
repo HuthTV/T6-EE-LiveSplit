@@ -1,3 +1,10 @@
+state("plutonium-bootstrapper-win32", "r4043")
+{
+	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
+	float gametime:	0x02611260;		//con_gameMsgWindow0SplitscreenScale
+	float splitval:	0x026114A0;		//con_gameMsgWindow1SplitscreenScale
+}
+
 state("plutonium-bootstrapper-win32", "r4035")
 {
 	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
@@ -67,7 +74,20 @@ init
 		case 335872000: version = "r3904"; break;
 		case 338178048: version = "r3963"; break;
 		case 340664320: version = "r4035"; break;
-		default: version = "other"; break;
+		case 340729856: version = "r4043"; break;
+
+		default:
+			version = "other";
+
+			var versionMessage = MessageBox.Show
+			(
+				"WARNING!\n\n"+
+				"Livesplit is unable to detect your version of plutonium. "+
+				"Normaly happens after pluto update. Make sure you have the latest ASL script. "+
+				"Downloads: github.com/HuthTV/T6-EE-LiveSplit/releases",
+				"Unsupported plutonium version"
+			);
+			break;
 	}
 }
 
