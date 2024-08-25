@@ -1,48 +1,12 @@
-state("plutonium-bootstrapper-win32", "r4043")
-{
-	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
-	float gametime:	0x02611260;		//con_gameMsgWindow0SplitscreenScale
-	float splitval:	0x026114A0;		//con_gameMsgWindow1SplitscreenScale
-}
-
-state("plutonium-bootstrapper-win32", "r4035")
-{
-	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
-	float gametime:	0x02611260;		//con_gameMsgWindow0SplitscreenScale
-	float splitval:	0x026114A0;		//con_gameMsgWindow1SplitscreenScale
-}
-
-state("plutonium-bootstrapper-win32", "r3963")
-{
-	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
-	float gametime:	0x026111A0;		//con_gameMsgWindow0SplitscreenScale
-	float splitval:	0x026113E0;		//con_gameMsgWindow1SplitscreenScale
-}
-
-state("plutonium-bootstrapper-win32", "r3904")
-{
-	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
-	float gametime:	0x026111A0;		//con_gameMsgWindow0SplitscreenScale
-	float splitval:	0x026113E0;		//con_gameMsgWindow1SplitscreenScale
-}
-
-state("plutonium-bootstrapper-win32", "r2905")
-{
-	int tick:	0x002AA13C, 0x14;	//game ticks 20hz
-	float gametime:	0x02612580;		//con_gameMsgWindow0SplitscreenScale
-	float splitval:	0x026127C0;		//con_gameMsgWindow1SplitscreenScale
-}
-
 state("plutonium-bootstrapper-win32", "other")
 {
 	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
-	//No game version
 }
 
 startup
 {
 	refreshRate = 200;
-	vars.startvalue = 119;
+	vars.startvalue = 120;
 	vars.endvalue = 500;
 	vars.paused = 0;
 	vars.timerModel = new TimerModel { CurrentState = timer };
@@ -68,32 +32,23 @@ startup
 
 init
 {
-	vars.memsize = modules.First().ModuleMemorySize;
-	switch(modules.First().ModuleMemorySize) {
-		case 560967680: version = "r2905"; break;
-		case 335872000: version = "r3904"; break;
-		case 338178048: version = "r3963"; break;
-		case 340664320: version = "r4035"; break;
-		case 340729856: version = "r4043"; break;
+	var scanner = new SignatureScanner(game, modules.First().BaseAddress, modules.First().ModuleMemorySize);
+	var scanTargetSplits = new SigScanTarget(24, "3B 0B 18 01 6C 9A C5 00 62 60 AD 35 01 04 00 00 02 00 00 00 01 00 00 00 ?? ?? ?? ??");
+	var scanTargetTime = new SigScanTarget(24, "18 0B 18 01 6C 9A C5 00 61 7E D3 A2 01 04 00 00 02 00 00 00 01 00 00 00 ?? ?? ?? ??");
+	IntPtr splitPtr = scanner.Scan(scanTargetSplits);
+	IntPtr timePtr = scanner.Scan(scanTargetTime);
 
-		default:
-			version = "other";
-
-			var versionMessage = MessageBox.Show
-			(
-				"WARNING!\n\n"+
-				"Livesplit is unable to detect your version of plutonium. "+
-				"Normaly happens after pluto update. Make sure you have the latest ASL script. "+
-				"Downloads: github.com/HuthTV/T6-EE-LiveSplit/releases",
-				"Unsupported plutonium version"
-			);
-			break;
-	}
+	vars.Watchers = new MemoryWatcherList
+	{
+		new MemoryWatcher<float>(splitPtr){ Name = "split" },
+		new MemoryWatcher<float>(timePtr){ Name = "time" }
+	};
 }
 
 update
 {
-	if(current.splitval == vars.endvalue && vars.paused == 0)
+	vars.Watchers.UpdateAll(game);
+	if(vars.Watchers["split"].Current == vars.endvalue && vars.paused == 0)
 	{
 		vars.paused = 1;
 		vars.timerModel.Pause();
@@ -103,7 +58,7 @@ update
 gameTime
 {
 	if(current.tick > 0)
-		return TimeSpan.FromMilliseconds( current.gametime );
+		return TimeSpan.FromMilliseconds( vars.Watchers["time"].Current );
 }
 
 isLoading
@@ -113,7 +68,7 @@ isLoading
 
 start
 {
-	if(current.splitval == vars.startvalue && current.tick > 0)
+	if(vars.Watchers["split"].Current == vars.startvalue && current.tick > 0)
 	{
 		vars.split = 0;
 		if(vars.paused == 1);
@@ -127,7 +82,7 @@ start
 
 split
 {
-	if(current.splitval > vars.split && current.splitval < vars.startvalue)
+	if(vars.Watchers["split"].Current > vars.split && vars.Watchers["split"].Current < vars.startvalue)
 	{
 		vars.split++;
 		if(settings[vars.split_index[vars.split]])
