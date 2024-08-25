@@ -13,10 +13,11 @@ main()
 
 init()
 {
-    level.eem_version = "V3.1";
-    level.eem_start_value = 119;
+    level.eem_version = "V3.2";
+    level.eem_start_value = 120;
     level.eem_end_value = 500;
     level.eem_split_num = 0;
+
     level.eem_split_dvar = "con_gameMsgWindow1SplitscreenScale";    //communicate split progress
     level.eem_time_dvar = "con_gameMsgWindow0SplitscreenScale";     //communicate gametime
     setdvar(level.eem_split_dvar, level.eem_split_num);
