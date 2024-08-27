@@ -6,7 +6,7 @@ state("plutonium-bootstrapper-win32", "other")
 startup
 {
 	refreshRate = 200;
-	vars.startvalue = 120;
+	vars.startvalue = 119;
 	vars.endvalue = 500;
 	vars.paused = 0;
 	vars.timerModel = new TimerModel { CurrentState = timer };
@@ -45,15 +45,34 @@ startup
 init
 {
 	var scanner = new SignatureScanner(game, modules.First().BaseAddress, modules.First().ModuleMemorySize);
+
+	//old style "rXXXX>"
+	var scanTargetOldVersion = new SigScanTarget(11, "50 6C 75 74 6F 6E 69 75 6D 20 72 ?? ?? ?? ?? 3E");
+	IntPtr versPtrOld = scanner.Scan(scanTargetOldVersion);
+
+	//new style "rXXXX >"
+	var scanTargetNewVersion = new SigScanTarget(11, "50 6C 75 74 6F 6E 69 75 6D 20 72 ?? ?? ?? ?? ?? 3E");
+	IntPtr versPtrNew = scanner.Scan(scanTargetNewVersion);
+
+	if(versPtrOld != IntPtr.Zero)		{ vars.versionBytes = game.ReadValue<int>(versPtrOld); }
+	else if(versPtrNew != IntPtr.Zero)	{ vars.versionBytes = game.ReadValue<int>(versPtrNew); }
+	else								{ vars.versionBytes = 0; }
+
+	byte[] bytes = BitConverter.GetBytes(vars.versionBytes);
+	vers.versionNum = System.Text.Encoding.Default.GetString(bytes, 0, bytes.Length);
+
+	//version dvar	con_gameMsgWindow2SplitscreenScale
+	//splits dvar	con_gameMsgWindow1SplitscreenScale
+	//time dvar		con_gameMsgWindow0SplitscreenScale
 	var scanTargetSplits = new SigScanTarget(24, "3B 0B 18 01 6C 9A C5 00 62 60 AD 35 01 04 00 00 02 00 00 00 01 00 00 00 ?? ?? ?? ??");
 	var scanTargetTime = new SigScanTarget(24, "18 0B 18 01 6C 9A C5 00 61 7E D3 A2 01 04 00 00 02 00 00 00 01 00 00 00 ?? ?? ?? ??");
 	IntPtr splitPtr = scanner.Scan(scanTargetSplits);
 	IntPtr timePtr = scanner.Scan(scanTargetTime);
 
-	vars.Watchers = new MemoryWatcherList
+	vars.Watchers = new MemoryWatcherList()
 	{
 		new MemoryWatcher<float>(splitPtr){ Name = "split" },
-		new MemoryWatcher<float>(timePtr){ Name = "time" }
+		new MemoryWatcher<float>(timePtr){ Name = "time" },
 	};
 }
 
