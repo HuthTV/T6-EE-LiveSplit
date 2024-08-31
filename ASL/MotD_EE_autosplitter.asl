@@ -1,14 +1,13 @@
-state("plutonium-bootstrapper-win32", "other")
+state("plutonium-bootstrapper-win32")
 {
 	int tick:     0x002AA13C, 0x14;	//game ticks 20hz
 }
 
 startup
 {
-	refreshRate = 200;
-	vars.startvalue = 119;
+	refreshRate = 20;
+	vars.startvalue = 120;
 	vars.endvalue = 500;
-	vars.paused = 0;
 	vars.timerModel = new TimerModel { CurrentState = timer };
 
 	settings.Add("splits", true, "Splits");
@@ -40,50 +39,41 @@ startup
 		{8, "nixie_code"},
 		{9, "audio_tour_finished"}
 	};
+
+	vars.oldVersionSig = new SigScanTarget(11, "50 6C 75 74 6F 6E 69 75 6D 20 72 ?? ?? ?? ?? 3E"); 		//old style "rXXXX>"
+	vars.newVersionSig = new SigScanTarget(11, "50 6C 75 74 6F 6E 69 75 6D 20 72 ?? ?? ?? ?? ?? 3E"); 	//new style "rXXXX >"
+	vars.splitInfoSig = new SigScanTarget(24, "3B 0B 18 01 6C 9A C5 00 62 60 AD 35 01 04");	//splits dvar 	con_gameMsgWindow1SplitscreenScale
+	vars.timeInfoSig = new SigScanTarget(24, "18 0B 18 01 6C 9A C5 00 61 7E D3 A2 01 04");	//time dvar		con_gameMsgWindow0SplitscreenScale
 }
 
 init
 {
 	var scanner = new SignatureScanner(game, modules.First().BaseAddress, modules.First().ModuleMemorySize);
 
-	//old style "rXXXX>"
-	var scanTargetOldVersion = new SigScanTarget(11, "50 6C 75 74 6F 6E 69 75 6D 20 72 ?? ?? ?? ?? 3E");
-	IntPtr versPtrOld = scanner.Scan(scanTargetOldVersion);
+	IntPtr splitPtr = scanner.Scan(vars.splitInfoSig);
+	IntPtr timePtr = scanner.Scan(vars.timeInfoSig);
 
-	//new style "rXXXX >"
-	var scanTargetNewVersion = new SigScanTarget(11, "50 6C 75 74 6F 6E 69 75 6D 20 72 ?? ?? ?? ?? ?? 3E");
-	IntPtr versPtrNew = scanner.Scan(scanTargetNewVersion);
+	if(splitPtr == IntPtr.Zero || timePtr == IntPtr.Zero) throw new Exception();
 
-	if(versPtrOld != IntPtr.Zero)		{ vars.versionBytes = game.ReadValue<int>(versPtrOld); }
-	else if(versPtrNew != IntPtr.Zero)	{ vars.versionBytes = game.ReadValue<int>(versPtrNew); }
-	else								{ vars.versionBytes = 0; }
+	IntPtr versPtrOld = scanner.Scan(vars.oldVersionSig);
+	IntPtr versPtrNew = scanner.Scan(vars.newVersionSig);
 
-	byte[] bytes = BitConverter.GetBytes(vars.versionBytes);
-	vers.versionNum = System.Text.Encoding.Default.GetString(bytes, 0, bytes.Length);
-
-	//version dvar	con_gameMsgWindow2SplitscreenScale
-	//splits dvar	con_gameMsgWindow1SplitscreenScale
-	//time dvar		con_gameMsgWindow0SplitscreenScale
-	var scanTargetSplits = new SigScanTarget(24, "3B 0B 18 01 6C 9A C5 00 62 60 AD 35 01 04 00 00 02 00 00 00 01 00 00 00 ?? ?? ?? ??");
-	var scanTargetTime = new SigScanTarget(24, "18 0B 18 01 6C 9A C5 00 61 7E D3 A2 01 04 00 00 02 00 00 00 01 00 00 00 ?? ?? ?? ??");
-	IntPtr splitPtr = scanner.Scan(scanTargetSplits);
-	IntPtr timePtr = scanner.Scan(scanTargetTime);
+	if(versPtrOld != IntPtr.Zero)		{ version = "Plutonium r" + game.ReadString(versPtrOld, 4); }
+	else if(versPtrNew != IntPtr.Zero)	{ version = "Plutonium r" + game.ReadString(versPtrNew, 4); }
+	else								{ version = "Plutonium"; }
 
 	vars.Watchers = new MemoryWatcherList()
 	{
 		new MemoryWatcher<float>(splitPtr){ Name = "split" },
-		new MemoryWatcher<float>(timePtr){ Name = "time" },
+		new MemoryWatcher<float>(timePtr){ Name = "time" }
 	};
 }
 
 update
 {
 	vars.Watchers.UpdateAll(game);
-	if(vars.Watchers["split"].Current == vars.endvalue && vars.paused == 0)
-	{
-		vars.paused = 1;
+	if(vars.Watchers["split"].Current == vars.endvalue && timer.CurrentPhase == TimerPhase.Running)
 		vars.timerModel.Pause();
-	}
 }
 
 gameTime
@@ -102,11 +92,6 @@ start
 	if(vars.Watchers["split"].Current == vars.startvalue && current.tick > 0)
 	{
 		vars.split = 0;
-		if(vars.paused == 1);
-		{
-			vars.timerModel.Pause();
-			vars.paused = 0;
-		}
 		return true;
 	}
 }
@@ -115,8 +100,7 @@ split
 {
 	if(vars.Watchers["split"].Current > vars.split && vars.Watchers["split"].Current < vars.startvalue)
 	{
-		vars.split++;
-		if(settings[vars.split_index[vars.split]])
+		if(settings[vars.split_index[++vars.split]])
 			return true;
 	}
 }
@@ -128,9 +112,6 @@ reset
 
 exit
 {
-	if(vars.paused == 0)
-	{
-		vars.paused = 1;
+	if(timer.CurrentPhase == TimerPhase.Running)
 		vars.timerModel.Pause();
-	}
 }
