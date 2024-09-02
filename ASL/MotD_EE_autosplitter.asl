@@ -71,7 +71,7 @@ init
 		new MemoryWatcher<float>(timePtr){ Name = "time" }
 	};
 
-	vars.writePtr = versDvarPtr;
+	vars.versionWritePtr = versDvarPtr;
 }
 
 update
@@ -97,7 +97,7 @@ start
 	if(vars.Watchers["split"].Current == vars.startvalue && current.tick > 0)
 	{
 		vars.split = 0;
-		IntPtr temp = vars.writePtr;
+		IntPtr temp = vars.versionWritePtr;
 		game.WriteValue<float>(temp, (float)Int32.Parse(vars.versionNum));
 		return true;
 	}
