@@ -42,8 +42,9 @@ startup
 
 	vars.oldVersionSig = new SigScanTarget(11, "50 6C 75 74 6F 6E 69 75 6D 20 72 ?? ?? ?? ?? 3E"); 		//old style "rXXXX>"
 	vars.newVersionSig = new SigScanTarget(11, "50 6C 75 74 6F 6E 69 75 6D 20 72 ?? ?? ?? ?? ?? 3E"); 	//new style "rXXXX >"
-	vars.splitInfoSig = new SigScanTarget(24, "3B 0B 18 01 6C 9A C5 00 62 60 AD 35 01 04");	//splits dvar 	con_gameMsgWindow1SplitscreenScale
-	vars.timeInfoSig = new SigScanTarget(24, "18 0B 18 01 6C 9A C5 00 61 7E D3 A2 01 04");	//time dvar		con_gameMsgWindow0SplitscreenScale
+	vars.versionDvarSig = new SigScanTarget(16, "63 42 87 C8 01 00 00 00");						//version dvar 	con_gameMsgWindow2SplitscreenScale
+	vars.splitInfoSig = new SigScanTarget(24, "3B 0B 18 01 6C 9A C5 00 62 60 AD 35 01 04");		//splits dvar 	con_gameMsgWindow1SplitscreenScale
+	vars.timeInfoSig = new SigScanTarget(24, "18 0B 18 01 6C 9A C5 00 61 7E D3 A2 01 04");		//time dvar		con_gameMsgWindow0SplitscreenScale
 }
 
 init
@@ -57,16 +58,20 @@ init
 
 	IntPtr versPtrOld = scanner.Scan(vars.oldVersionSig);
 	IntPtr versPtrNew = scanner.Scan(vars.newVersionSig);
+	IntPtr versDvarPtr = scanner.Scan(vars.versionDvarSig);
 
-	if(versPtrOld != IntPtr.Zero)		{ version = "Plutonium r" + game.ReadString(versPtrOld, 4); }
-	else if(versPtrNew != IntPtr.Zero)	{ version = "Plutonium r" + game.ReadString(versPtrNew, 4); }
-	else								{ version = "Plutonium"; }
+	if(versPtrOld != IntPtr.Zero)		{ vars.versionNum = game.ReadString(versPtrOld, 4); }
+	else if(versPtrNew != IntPtr.Zero)	{ vars.versionNum = game.ReadString(versPtrNew, 4); }
+	else								{ vars.versionNum = "0"; }
+	version = "Plutonium r" + vars.versionNum;
 
 	vars.Watchers = new MemoryWatcherList()
 	{
 		new MemoryWatcher<float>(splitPtr){ Name = "split" },
 		new MemoryWatcher<float>(timePtr){ Name = "time" }
 	};
+
+	vars.writePtr = versDvarPtr;
 }
 
 update
@@ -92,6 +97,8 @@ start
 	if(vars.Watchers["split"].Current == vars.startvalue && current.tick > 0)
 	{
 		vars.split = 0;
+		IntPtr temp = vars.writePtr;
+		game.WriteValue<float>(temp, (float)Int32.Parse(vars.versionNum));
 		return true;
 	}
 }
