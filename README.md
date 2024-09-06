@@ -1,5 +1,4 @@
-Autosplitter scripts for timing BO2 **solo** easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Tested and functional for following Plutonium versions:  
-`R2905` `R3904 - R4043`
+Autosplitter scripts for timing official BO2 _**solo**_ easter egg speedruns. Automatically start, reset, and split runs. Tick Accurate timing (50ms). Should be functional for Plutonium versions: `r2xxx` and beyond
 
 ## Video Guide
 
@@ -19,32 +18,22 @@ https://youtu.be/xQsdHSso_To
 
    ![Layout](https://i.imgur.com/aOkBIdd.png "ASL")
 
-5. You can now start running! Make sure to open LiveSplit before starting game.
-
-## Versions
-
-   The version number is given by x.y.z  
-      x = major change  
-      y = minor change  
-      z = asl change  
-      
-Typically T6 Pluto updates tend to break the ASL file, prompting the release of a updated ASL version. The GSC script remains unchanged but retains compatibility. For instance, the 3.1 GSC script functions with 3.1.3 ASL.  
-
-The legacy scripts are older versions with inaccurate timing but superior compatibility. It is no longer maintained an will not recive any updates. These scripts are not recommended to be used, however.  If the current main release is not functioning properly, the legacy scripts can be temporarily utilized until the next update.
+5. You can now start running!
 
 ## Downloads
 
-GSC Split Monitor V3.1 (required for all maps)  
-[[download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.3/EE_livesplit_monitor_3.1.gsc)]  
+GSC Split Monitor is required for all maps
+| GSC Split Monitor | Origins ASL | MOTD ASL | Tranzit ASL |
+| :-----------: | :-----------: | :-----------: | :-----------: |
+| [download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.2/EE_livesplit_monitor_3.2.gsc) | [download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.2/Origins_EE_autosplitter_3.2.asl) | [download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.2/MotD_EE_autosplitter_3.2.asl) | [download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.2/Tranzit_EE_autosplitter_3.2.asl) |
 
-ASL Script V3.1.3  
-[[Tranzit](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.3/Tranzit_EE_autosplitter_3.1.3.asl)]  [[MotD](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.3/MotD_EE_autosplitter_3.1.3.asl)] [[Origins](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V3.1.3/Origins_EE_autosplitter_3.1.3.asl)]  
+Premade Livesplit Splits (lss) & Layout Files (lsl) files. If you don't want to make your own.
+| Origins lss+lsl | MOTD lss+lsl | Tranzit lss+lsl |
+| :-----------: | :-----------: | :-----------: |
+| [download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/origins_livesplit_files.zip)  | [download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/motd_livesplit_files.zip)  | [download](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip) |
 
-Livesplit Splits (lss) & Layout Files (lsl)  
-[[Tranzit](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/tranzit_livesplit_files.zip)]  [[MotD](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/motd_livesplit_files.zip)]  [[Origins](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Split-Files/origins_livesplit_files.zip)]  
 
-Legacy V1.0  
-[[Split Monitor](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_EE_livesplit_monitor_1.0.gsc)]  [[Tranzit](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Tranzit_EE_autosplitter_1.0.asl)]  [[MotD](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_MotD_EE_autosplitter_1.0.asl)]  [[Origins](https://github.com/HuthTV/BO2-Easter-Egg-Auto-Splitters/releases/download/Legacy_V1.0/Legacy_Origins_EE_autosplitter_1.0.asl)]  
+
 
 ## Network Frame Fix
 In certain older versions of Plutonium (such as R2905), there exists an issue with the `wait_network_frame()` function, speeding up certain in-game events, most notably the spawnrate of zombies. The **latest** release incorporates a fix for this particular issue, ensuring that gameplay on older Plutonium versions remains legitimate.
@@ -67,3 +56,7 @@ When playing tranzit. Upon spawning, players will be awarded all persistent upgr
 `pers_multikill_headshots`   
 `pers_pistol_points_counter`    
 `pers_double_points_counter`
+
+## Legacy Scripts
+These script use an older, inaccurate timing method. Scripts are not maintained and not recommended for runs. wait_network_frame fix is not included.
+https://github.com/HuthTV/T6-EE-LiveSplit/releases/tag/Legacy_V1.0
