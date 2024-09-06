@@ -13,19 +13,19 @@ main()
 
 init()
 {
+     if(level.scr_zm_ui_gametype_group != "zclassic") return;
+
     level.eem_version = "V3.2";
     level.eem_start_value = 120;
     level.eem_end_value = 500;
     level.eem_split_num = 0;
 
+    level.eem_pluto_version = "con_gameMsgWindow2SplitscreenScale"; //communicate split progress
     level.eem_split_dvar = "con_gameMsgWindow1SplitscreenScale";    //communicate split progress
     level.eem_time_dvar = "con_gameMsgWindow0SplitscreenScale";     //communicate gametime
     setdvar(level.eem_split_dvar, level.eem_split_num);
 
-    if(level.scr_zm_ui_gametype_group != "zclassic") return;
-
     level thread on_player_connect();
-    //if(getdvar("scr_kill_infinite_loops") == "") {} Pre r3755
 }
 
 on_player_connect()
@@ -308,13 +308,19 @@ network_frame_print()
         wait_network_frame();
         delay = gettime() - start;
 
-        msgstring = "^8[^6Network Frame -Fix^8] ^7" + delay + "ms ";
+        msgstring = "^8[^6Plutonium";
+        vers = getdvarfloat(level.eem_pluto_version);
+        if(2000 < vers) msgstring += " r" + vers;
+        msgstring += "^8] ^7Network Frame: ";
 
         if( (level.players.size == 1 && delay == 100) || (level.players.size < 1 && delay == 50) )
-            msgstring += "^2good";
+            msgstring += "^2";
         else
-            msgstring += "^1bad";
+            msgstring += "^1";
 
+        msgstring += delay + "ms";
+
+        wait 0.1;
         Print(msgstring);
         IPrintLn(msgstring);
     }
