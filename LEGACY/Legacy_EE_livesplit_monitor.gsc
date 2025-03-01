@@ -9,7 +9,7 @@ init()
 {
     if(level.scr_zm_ui_gametype_group != "zclassic") return;
 
-    level.leem_version = "V1.0 LEGACY";
+    level.leem_version = "V1.1 LEGACY";
     level.leem_start_value = 935;
     level.leem_split_dvar = "sv_maxPing";
     level.leem_split_num = 0;
@@ -46,6 +46,10 @@ split_monitor()
     {
         splits = strtok("jetgun|tower|end", "|");
     }
+    else if(level.script == "zm_buried")
+    {
+        splits = strtok("cipher|time_travel|sharpshooter", "|");
+    }
 
     flag_wait("initial_blackscreen_passed");
     setdvar(level.leem_split_dvar, level.leem_start_value);
@@ -81,6 +85,19 @@ check_split(split, is_flag)
             case "last_audio_log":
                 wait 10;
                 while( isdefined(level.m_headphones) ) wait 0.05;
+                break;
+
+            //buried nonflags
+            case "cipher":
+                wait_for_buildable("buried_sq_oillamp");
+                break;
+
+            case "time_travel":
+                while( !flag("sq_tpo_special_round_active") && !flag("sq_wisp_saved_with_time_bomb") ) wait 0.05;
+                break;
+
+            case "sharpshooter":
+                level waittill_any("sq_richtofen_complete", "sq_maxis_complete");
                 break;
 
             //origins nonflags
@@ -126,6 +143,11 @@ is_flag(split_name)
         case "gondola_in_motion1":
         case "nixie_code":
         case "last_audio_log":
+
+        //buried nonflags
+        case "cipher":
+        case "time_travel":
+        case "sharpshooter":
 
         //origins nonflags
         case "staff_1_crafted":
