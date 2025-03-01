@@ -9,7 +9,7 @@ init()
 {
     if(level.scr_zm_ui_gametype_group != "zclassic") return;
 
-    level.leem_version = "V1.0 LEGACY";
+    level.leem_version = "V1.1 LEGACY";
     level.leem_start_value = 935;
     level.leem_split_dvar = "sv_maxPing";
     level.leem_split_num = 0;
@@ -93,7 +93,7 @@ check_split(split, is_flag)
                 break;
 
             case "time_travel":
-                while( !flag("sq_tpo_special_round_active") && !flag("sq_wisp_saved_with_time_bomb") ) wait 0.5;
+                while( !flag("sq_tpo_special_round_active") && !flag("sq_wisp_saved_with_time_bomb") ) wait 0.05;
                 break;
 
             case "sharpshooter":
