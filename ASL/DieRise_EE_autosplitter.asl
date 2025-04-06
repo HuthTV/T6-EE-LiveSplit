@@ -11,9 +11,9 @@ startup
 
 	vars.split_names = new Dictionary<int, Tuple<string, string>>()
 	{
-		{1, Tuple.Create("jetgun", "Jetgun Built")},
-		{2, Tuple.Create("tower", "Tower Heated")},
-		{3, Tuple.Create("end", "EMP Lightposts")}
+		{1, Tuple.Create("symbols", "Dragon symbols")},
+		{2, Tuple.Create("balls", "Dragon balls")},
+		{3, Tuple.Create("perks", "Perks obtained")}
 	};
 
 	settings.Add("splits", true, "Splits");
