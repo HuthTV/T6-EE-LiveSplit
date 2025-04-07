@@ -25,7 +25,7 @@ on_player_connect()
     level waittill( "connected", player );
     if(getdvar("scr_allowFileIo") == "")
     {
-        player iprintln("^8[^3T6EE^8][^5" + level.eem_version + "^8]^1 Unsupported plutonium version! Use R4811+");
+        player iprintln("^8[^3T6EE^8][^5" + level.eem_version + "^8]^1 Unsupported plutonium version! Update your client");
         return;
     }
 
@@ -46,7 +46,10 @@ on_player_connect()
 
 game_start_wait()
 {
-    if(level.script == "zm_prison") level thread mob_start_wait();
+    if(level.script == "zm_prison")
+    {
+        level thread mob_start_wait();
+    }
     flag_wait( "initial_blackscreen_passed" );
     flag_set("timer_start");
 }
@@ -92,24 +95,24 @@ split_monitor()
     switch(level.script)
     {
         case "zm_transit":
-        level.splits = strtok("jetgun|tower|end", "|");
-        break;
+            level.splits = strtok("jetgun|tower|end", "|");
+            break;
 
         case "zm_highrise":
-        level.splits = strtok("sq_atd_drg_puzzle_complete|balls|perks", "|");
-        break;
+            level.splits = strtok("sq_atd_drg_puzzle_complete|balls|perks", "|");
+            break;
 
         case "zm_prison":
-        level.splits = strtok("dryer_cycle_active|gondola_in_motion1|plane_boarded|gondola_in_motion|plane_boarded|gondola_in_motion|plane_boarded|nixie_code|last_audio_log", "|");
-        break;
+            level.splits = strtok("dryer_cycle_active|gondola_in_motion1|plane_boarded|gondola_in_motion|plane_boarded|gondola_in_motion|plane_boarded|nixie_code|last_audio_log", "|");
+            break;
 
         case "zm_buried":
-        level.splits = strtok("cipher|time_travel|sharpshooter", "|");
-        break;
+            level.splits = strtok("cipher|time_travel|sharpshooter", "|");
+            break;
 
         case "zm_tomb":
-        level.splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|ee_mech_zombie_hole_opened|end_game", "|");
-        break;
+            level.splits = strtok("activate_zone_nml|boxes|staff_1_crafted|staff_2_crafted|staff_3_crafted|staff_4_crafted|ee_all_staffs_placed|ee_mech_zombie_hole_opened|end_game", "|");
+            break;
     }
 
     flag_wait("timer_start");
@@ -132,8 +135,8 @@ check_split(split, is_flag)
         {
             //transit nonflags
             case "jetgun":
-            while(level.sq_progress["rich"]["A_jetgun_built"] == 0) wait 0.05;
-            break;
+                while(level.sq_progress["rich"]["A_jetgun_built"] == 0) wait 0.05;
+                break;
 
             case "tower":
                 while(level.sq_progress["rich"]["A_jetgun_tower"] == 0) wait 0.05;
@@ -200,7 +203,6 @@ check_split(split, is_flag)
                 break;
         }
     }
-
     return;
 }
 
@@ -234,7 +236,6 @@ is_flag(split_name)
         case "staff_4_crafted":
         case "boxes":
         case "end_game":
-
             return 0;
 
         default:
@@ -254,14 +255,18 @@ upgrade_dvars()
     foreach(upgrade in level.pers_upgrades)
     {
         foreach(stat_name in upgrade.stat_names)
+        {
             level.eet_upgrades[level.eet_upgrades.size] = stat_name;
+        }
     }
 
     create_bool_dvar("full_bank", 1);
     create_bool_dvar("pers_insta_kill", level.script != "zm_transit");
 
     foreach(pers_perk in level.eet_upgrades)
+    {
         create_bool_dvar(pers_perk, 1);
+    }
 }
 
 persistent_upgrades_bank()
