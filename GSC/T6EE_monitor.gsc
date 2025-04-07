@@ -201,7 +201,7 @@ check_split(split, is_flag)
         }
     }
 
-    return gettime();
+    return;
 }
 
 is_flag(split_name)
@@ -245,8 +245,8 @@ is_flag(split_name)
 show_start_message()
 {
     flag_wait( "initial_players_connected" );
-    wait 0.15;
-    self iprintln("^8[^3T6EE^8][^5" + level.eem_version + "^8]^7 github.com/HuthTV/T6-EE-LiveSplit");
+    wait 0.25;
+    self iprintln("^8[^1R" + getSubStr(getDvar("version"), 23, 27) +"^8] [^3T6EE^8] [^5" + level.eem_version + "^8]^7 github.com/HuthTV/T6-EE-LiveSplit");
 }
 
 upgrade_dvars()
