@@ -59,4 +59,4 @@ When playing tranzit. Upon spawning, players will be awarded all persistent upgr
 
 ## Legacy Scripts
 These script use an older, inaccurate timing method. Scripts are not maintained and not recommended for runs. wait_network_frame fix is not included.
-https://github.com/HuthTV/T6-EE-LiveSplit/releases/tag/Legacy_V1.0
+https://github.com/HuthTV/T6-EE-LiveSplit/releases/tag/Legacy_V1.1
