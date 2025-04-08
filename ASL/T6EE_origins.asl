@@ -11,15 +11,15 @@ startup
 
 	vars.split_names = new Dictionary<int, Tuple<string, string>>()
 	{
-		{1, Tuple.Create("no_mans_land", "No mans land open")},
-		{2, Tuple.Create("soul_chests", "All chests filled")},
-		{3, Tuple.Create("staff_1", "Staff 1 crafted")},
-		{4, Tuple.Create("staff_2", "Staff 2 crafted")},
-		{5, Tuple.Create("staff_3", "Staff 3 crafted")},
-		{6, Tuple.Create("staff_4", "Staff 4 crafted")},
-		{7, Tuple.Create("ee_all_staffs_placed", "Ascend from darkness (Staffs placed in robots)")},
-		{8, Tuple.Create("ee_mech_zombie_hole_opened", "Rain fire (Seal broken)")},
-		{9, Tuple.Create("end_game", "Freedom (Game ended)")}
+		{1, Tuple.Create("no_mans_land", "No Man's Land Open")},
+		{2, Tuple.Create("soul_chests", "All Chests Filled")},
+		{3, Tuple.Create("staff_1", "Staff 1 Crafted")},
+		{4, Tuple.Create("staff_2", "Staff 2 Crafted")},
+		{5, Tuple.Create("staff_3", "Staff 3 Crafted")},
+		{6, Tuple.Create("staff_4", "Staff 4 Crafted")},
+		{7, Tuple.Create("ee_all_staffs_placed", "Ascend from Darkness (Staffs Placed in Robots)")},
+		{8, Tuple.Create("ee_mech_zombie_hole_opened", "Rain Fire (Seal Broken)")},
+		{9, Tuple.Create("end_game", "Freedom (Game Ended)")},
 	};
 
 	settings.Add("splits", true, "Splits");

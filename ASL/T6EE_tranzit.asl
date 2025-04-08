@@ -13,7 +13,7 @@ startup
 	{
 		{1, Tuple.Create("jetgun", "Jetgun Built")},
 		{2, Tuple.Create("tower", "Tower Heated")},
-		{3, Tuple.Create("end", "EMP Lightposts")}
+		{3, Tuple.Create("end", "EMP Step")}
 	};
 
 	settings.Add("splits", true, "Splits");

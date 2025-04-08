@@ -11,7 +11,7 @@ startup
 
 	vars.split_names = new Dictionary<int, Tuple<string, string>>()
 	{
-		{1, Tuple.Create("cipher", "Cipher Done")},
+		{1, Tuple.Create("cipher", "Cipher solved")},
 		{2, Tuple.Create("time_travel", "Time Travel")},
 		{3, Tuple.Create("sharpshooter", "Sharpshooter")}
 	};

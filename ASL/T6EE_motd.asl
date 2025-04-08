@@ -12,14 +12,14 @@ startup
 	vars.split_names = new Dictionary<int, Tuple<string, string>>()
 	{
 		{1, Tuple.Create("dryer_cycle_active", "Dryer started")},
-		{2, Tuple.Create("gondola_1", "1st gondola ride")},
-		{3, Tuple.Create("fly_1", "1st Flight")},
-		{4, Tuple.Create("gondola_2", "2nd gondola ride")},
-		{5, Tuple.Create("fly_2", "2nd Flight")},
-		{6, Tuple.Create("gondola_3", "3rd gondola ride")},
-		{7, Tuple.Create("fly_3", "3rd Flight")},
+		{2, Tuple.Create("gondola_1", "First gondola ride")},
+		{3, Tuple.Create("fly_1", "First flight")},
+		{4, Tuple.Create("gondola_2", "Second gondola ride")},
+		{5, Tuple.Create("fly_2", "Second flight")},
+		{6, Tuple.Create("gondola_3", "Third gondola ride")},
+		{7, Tuple.Create("fly_3", "Third flight")},
 		{8, Tuple.Create("nixie_code", "Prisoner codes entered")},
-		{9, Tuple.Create("audio_tour_finished", "Last audio log deleted")}
+		{9, Tuple.Create("audio_tour_finished", "Audio tour complete")}
 	};
 
 	settings.Add("splits", true, "Splits");
