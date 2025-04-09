@@ -5,7 +5,7 @@ state("plutonium-bootstrapper-win32")
 
 startup
 {
-	refreshRate = 20;
+	refreshRate = 40;
 	vars.splitValue = 0;
 	vars.timeValue = 0;
 
