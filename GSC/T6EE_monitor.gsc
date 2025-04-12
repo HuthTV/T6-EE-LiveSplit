@@ -15,7 +15,7 @@ main()
 init()
 {
     flag_init("timer_start");
-    level.eem_version = "V4";
+    level.eem_version = "V4.1";
     level.split_number = 0;
     level thread on_player_connect();
 }
@@ -73,6 +73,7 @@ game_over_wait()
 {
     flag_init("game_over");
     level waittill( "end_game" );
+    wait 1;
     flag_set("game_over");
 }
 
@@ -82,6 +83,7 @@ gametime_monitor()
     start_time = getTime();
     while(!flag("game_over"))
     {
+        if(level.split_number == level.splits.size) flag_set("game_over");
         timer_file = fs_fopen("timer", "write");
         str = level.split_number + "|" + (getTime() - start_time);
         fs_write( timer_file, str );
