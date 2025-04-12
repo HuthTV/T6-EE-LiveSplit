@@ -38,7 +38,7 @@ https://youtu.be/xQsdHSso_To
 In-game script that communicates with LiveSplit. Must be installed for **all maps**.
 | T6EE_monitor |
 |:---------:|
-| [download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V4/T6EE_monitor_V4.gsc) |
+| [download](https://github.com/HuthTV/T6-EE-LiveSplit/releases/download/V4.1/T6EE_monitor_V4.1.gsc) |
 
 ### ASL scripts
 Auto-splitter scripts for LiveSplit. Each map uses its own dedicated script.
